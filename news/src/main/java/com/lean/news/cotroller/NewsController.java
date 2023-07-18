@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -49,9 +50,9 @@ public class NewsController {
     
     
    @PostMapping("/postNews")
-   public String postNews(@RequestParam String title, @RequestParam String body) {
+   public String postNews(@RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile) {
        try {
-            newsService.createNews(title, body) ;
+            newsService.createNews(title, body, imageFile) ;
             return "index.html";
             
        } catch (Exception e) {
@@ -63,9 +64,9 @@ public class NewsController {
    
       
    @PutMapping("/editNews/{id}")
-   public String editNews(@PathVariable String id, @RequestParam String title, @RequestParam String body){
+   public String editNews(@PathVariable String id, @RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile){
        try {
-                  newsService.actualizeNews(id, title, body);
+                  newsService.actualizeNews(id, title, body, imageFile);
                   return "index.html";
        } catch (Exception e) {
            System.out.println("Error al actualizar la noticia");

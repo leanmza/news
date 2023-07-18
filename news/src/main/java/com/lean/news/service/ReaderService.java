@@ -49,16 +49,16 @@ public class ReaderService implements UserDetailsService {
 
     private void validate(String name, String lastName, String email, String password, String password2) throws MyException {
         if (emailChecker(email) == true) {
-            throw new MyException("El correol " + email + " ya se encuentra registrado");
+            throw new MyException("El email " + email + " ya se encuentra registrado");
         }
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo o estar vacío");
         }
         if (lastName == null || lastName.isEmpty()) {
-            throw new MyException("El nombre no puede ser nulo o estar vacío");
+            throw new MyException("El apellido no puede ser nulo o estar vacío");
         }
         if (email == null || email.isEmpty()) {
-            throw new MyException("El nombre no puede ser nulo o estar vacío");
+            throw new MyException("El email no puede ser nulo o estar vacío");
         }
         if (password == null || password.isEmpty()) {
             throw new MyException("La contraseña no pude ser nula o estar vacía");

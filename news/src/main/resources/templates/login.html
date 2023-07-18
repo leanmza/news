@@ -18,12 +18,27 @@
             />
           </div>
           <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                  <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
+        <p class="custom-success-message mensaje" th:text="${success}">
+          
+          
+        </p>
+</div>
+
+<div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError rounded-3 p-2">
+  <div class="card-body">
+      <p class="card-text fs-6 mb-0 custom-error-message" th:text="${error}"></p>
+  </div>
+</div>
+
+
             <form
               th:action="@{/loginCheck}"
               method="POST"
               class="form"
               id="formLogin"
             >
+                
               <!-- Email input -->
               <div class="form-outline mb-4">
                 <input

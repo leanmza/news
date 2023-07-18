@@ -4,10 +4,11 @@
  */
 package com.lean.news.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
@@ -31,7 +32,10 @@ public class News {
     private String body;
     
     @Temporal(TemporalType.DATE)
-    private Date dateLog;
+    private LocalDate dateLog;
+    
+    @OneToOne
+    private Image image;
     
 
 }

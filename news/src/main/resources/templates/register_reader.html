@@ -17,6 +17,12 @@
               class="form"
               id="formLogin"
             >
+                      <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError rounded-3 p-2">
+                    <div class="card-body">
+                        <h5 class="card-title fs-5 fw-bold mb-3">¡Error al registrar el usuario!</h5>
+                        <p class="card-text fs-6 mb-0 custom-error-message" th:text="${error}"></p>
+                    </div>
+                </div>
               <!-- Name input -->
               <div class="form-outline mb-2">
                 <input

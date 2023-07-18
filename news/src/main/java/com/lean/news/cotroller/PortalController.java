@@ -2,6 +2,7 @@ package com.lean.news.cotroller;
 
 import com.lean.news.entity.News;
 import com.lean.news.entity.Reader;
+import com.lean.news.exception.MyException;
 
 import com.lean.news.service.NewsService;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -40,7 +42,16 @@ public class PortalController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(required = false) String error, ModelMap model, @RequestParam(required = false) String success) throws UsernameNotFoundException {
+
+        if ("registerSuccess".equals(success)) {
+            model.put("registerSucces", "¡Gracias por registrarte en nuestra aplicación! Ahora puedes comenzar a utilizar nuestros servicios");
+        }
+
+        if (error != null) {
+
+            model.put("error", "Usuario y/o Contraseña incorrecto, intente nuevamente");
+        }
 
         return "login.html";
     }
@@ -62,18 +73,25 @@ public class PortalController {
     @PostMapping("/registerReader")
     public String registerReader(@RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password,
-            @RequestParam String password2) {
+            @RequestParam String password2, ModelMap modelo) throws MyException {
 
         try {
 
             readerService.registerReader(name, lastName, email, password, password2);
 
-            return "login.html";
+            return "redirect:/login?success=registerSuccess";
 
-        } catch (Exception e) {
-            System.out.println("Error al crear usuario" + e);
-            return "register_reader.html";
+        } catch (MyException me) {
+            System.out.println("¡Registro de paciente FALLIDO!\n" + me.getMessage());
+            modelo.put("error", me.getMessage());
         }
+
+        modelo.put("name", name);
+        modelo.put("lastName", lastName);
+        modelo.put("email", email);
+        modelo.put("password", password);
+
+        return "register_reader.html";
 
     }
 
