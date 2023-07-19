@@ -1,10 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.lean.news.service;
 
-import com.lean.news.entity.Reader;
+import com.lean.news.entity.Writer;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
-import com.lean.news.repository.ReaderRepository;
-
+import com.lean.news.repository.WriterRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -25,24 +28,24 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author Lean
  */
 @Service
-public class ReaderService implements UserDetailsService {
+public class WriterService implements UserDetailsService {
 
     @Autowired
-    private ReaderRepository readerRepository;
+    private WriterRepository writerRepository;
 
-    public void registerReader(String name, String lastName, String email, String password, String password2) throws MyException {
+    public void registerWriter(String name, String lastName, String email, String password, String password2) throws MyException {
 
         validate(name, lastName, email, password, password2);
 
-        Reader reader = new Reader();
+        Writer writer = new Writer();
 
-        reader.setName(name);
-        reader.setLastName(lastName);
-        reader.setEmail(email);
-        reader.setPassword(new BCryptPasswordEncoder().encode(password));
-        reader.setRol(Rol.READER);
+        writer.setName(name);
+        writer.setLastName(lastName);
+        writer.setEmail(email);
+        writer.setPassword(new BCryptPasswordEncoder().encode(password));
+        writer.setRol(Rol.WRITER);
 
-        readerRepository.save(reader);
+        writerRepository.save(writer);
 
     }
 
@@ -85,9 +88,9 @@ public class ReaderService implements UserDetailsService {
     }
 
     private boolean emailChecker(String email) { // Checks if the email already exists in the DB
-        boolean check = false; 
-        Reader reader = readerRepository.findReaderByEmail(email);
-        if (reader != null) {
+        boolean check = false;
+        Writer writer = writerRepository.findWriterByEmail(email);
+        if (writer != null) {
             check = true;
         }
         return check;
@@ -128,15 +131,14 @@ public class ReaderService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         System.out.println("email " + email);
-        Reader reader = readerRepository.findReaderByEmail(email);
-        System.out.println("reader " + reader);
+        Writer writer = writerRepository.findWriterByEmail(email);
+        System.out.println("writer " + writer);
 
-        if (reader != null) {
+        if (writer != null) {
             List<GrantedAuthority> permissions = new ArrayList();
 
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + reader.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + writer.getRol().toString());
 
             permissions.add(p);
 
@@ -144,14 +146,13 @@ public class ReaderService implements UserDetailsService {
 
             HttpSession session = attr.getRequest().getSession(true);
 
-            session.setAttribute("readerSession", reader);
+            session.setAttribute("writerSession", writer);
 
-            return new User(reader.getEmail(), reader.getPassword(), permissions);
+            return new User(writer.getEmail(), writer.getPassword(), permissions);
 
         } else {
             throw new UsernameNotFoundException("Usuario no encontrado con el correo: " + email);
 
         }
     }
-
 }

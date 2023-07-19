@@ -31,11 +31,12 @@ public class News {
     private String title;
     private String body;
     
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     private LocalDate dateLog;
     
     @OneToOne
     private Image image;
+    
     
 
 }

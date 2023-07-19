@@ -42,6 +42,7 @@ public class NewsService {
         news.setDateLog(LocalDate.now());
         
         if(imageFile !=null){
+            System.out.println("hay imagen");
             Image image = imageService.saveImage(imageFile);
             news.setImage(image);      
         }

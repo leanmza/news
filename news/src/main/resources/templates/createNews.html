@@ -10,14 +10,14 @@
     <main>
       <div class="container-fluid containerForm">
         <div class="row rowForm">
-          <div class="col-md-9 col-lg-6 col-xl-5">
+          <!-- <div class="col-md-9 col-lg-6 col-xl-5">
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                src="../Blogging-pana.png"
               class="img-fluid"
               alt="Sample image"
             />
-          </div>
-          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          </div> -->
+          <div class="col-md-10 col-lg-8 col-xl-8 ">
                   <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
         <p class="custom-success-message mensaje" th:text="${success}">
           
@@ -33,50 +33,48 @@
 
 
             <form
-              th:action="@{/loginCheck}"
+              th:action="@{/news/postNews}"
               method="POST"
               class="form"
               id="formLogin"
+              enctype="multipart/form-data"
             >
                 
-              <!-- Email input -->
+              <!-- Title input -->
               <div class="form-outline mb-4">
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="title"
                   class="form-control form-control-lg"
-                  placeholder="Email"
-                  name="email"
+                  placeholder="Título"
+                  name="title"
                 />
-                <label class="form-label" for="email">Email</label>
+                <label class="form-label" for="title">Título</label>
               </div>
 
-              <!-- Password input -->
+              <!-- Body input -->
+              <div class="form-outline mb-3">
+                <textarea 
+                name="body" 
+                id="body" 
+                cols="30" 
+                rows="15" 
+                class="form-control form-control-lg" 
+                placeholder="Cuerpo de la noticia"></textarea>
+          
+                <label class="form-label" for="body">Cuerpo de la noticia</label>
+              </div>
+
+              <!-- Image input -->
               <div class="form-outline mb-3">
                 <input
-                  type="password"
-                  id="password"
+                  type="file"
+                  id="image"
                   class="form-control form-control-lg"
-                  placeholder="Contraseña"
-                  name="password"
+                  placeholder="Subir imagen"
+                  name="imageFile"
                 />
-                <label class="form-label" for="password">Contraseña</label>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center">
-                <!-- Checkbox -->
-                <div class="form-check mb-0">
-                  <input
-                    class="form-check-input me-2"
-                    type="checkbox"
-                    value=""
-                    id="form2Example3"
-                  />
-                  <label class="form-check-label" for="form2Example3">
-                    Recordarme
-                  </label>
-                </div>
-                <a href="#!" class="text-body">¿No recuerda su contraseña?</a>
+                <label class="form-label" for="image">Subir imagen</label>
               </div>
 
               <div class="text-center text-lg-start mt-4 pt-2">
@@ -85,12 +83,9 @@
                   class="btn btn-primary btn-lg btnSubmit"
                   id="btnSubmit"
                 >
-                  Iniciar Sesión
+                  Guardar Noticia
                 </button>
-                <p class="small fw-bold mt-2 pt-1 mb-0">
-                  ¿No tenés cuenta?
-                  <a href="/register" class="link-danger">Crear Usuario</a>
-                </p>
+            
               </div>
             </form>
           </div>

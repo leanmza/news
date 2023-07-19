@@ -22,7 +22,7 @@ height: 100%;
     display: grid;
     justify-content: center;
     align-items: center;
-    padding: 5% 2%;
+    padding: 32px 32px;
 }
 
 .btnSubmit{

@@ -10,6 +10,7 @@ package com.lean.news.enums;
  */
 public enum Rol {
     EDITOR,
-    READER
+    READER,
+    WRITER
     
 }
