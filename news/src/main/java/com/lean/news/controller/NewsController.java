@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.lean.news.cotroller;
+package com.lean.news.controller;
 
 import com.lean.news.entity.News;
 import com.lean.news.service.NewsService;

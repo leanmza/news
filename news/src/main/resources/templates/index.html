@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace= "/fragments/head :: head"></head>
     <body>
   
@@ -9,33 +9,19 @@
   <main>
     <div class="container-fluid divMain">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
+      <div class="col" th:each="news : ${news}">
         <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
+          
+          <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top" alt="...">
+ 
+
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <h5 class="card-title" th:text="${news.title}">Card title</h5>
+            <p th:text="${news.id}"></p>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a short card.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
+ 
 
     </div>
   </div>

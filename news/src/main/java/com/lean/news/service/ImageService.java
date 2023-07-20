@@ -30,7 +30,7 @@ public class ImageService {
 
                 image.setNombre(imageFile.getName());
                 image.setMime(imageFile.getContentType());
-                image.setContenido(imageFile.getBytes());
+                image.setContent(imageFile.getBytes());
                 return imageRepository.save(image);
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
@@ -58,7 +58,7 @@ public class ImageService {
 
                 image.setNombre(imageFile.getName());
                 image.setMime(imageFile.getContentType());
-                image.setContenido(imageFile.getBytes());
+                image.setContent(imageFile.getBytes());
                 return imageRepository.save(image);
 
             } catch (IOException ex) {

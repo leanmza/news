@@ -27,6 +27,6 @@ public class Image {
 
     @Lob
     @Basic(fetch = FetchType.LAZY) // ALMACENA LOS DATOS BINARIOS DE LA IMAGEN
-    private byte[] contenido;
+    private byte[] content;
 
 }

@@ -1,4 +1,4 @@
-package com.lean.news.cotroller;
+package com.lean.news.controller;
 
 import com.lean.news.entity.News;
 import com.lean.news.entity.Reader;
@@ -35,9 +35,11 @@ public class PortalController {
     @Autowired
     private ReaderService readerService;
 
+    @Transactional
     @GetMapping("/")
-    public String index() {
-
+    public String index(Model model) {
+        List<News>newsList = newsService.newsList();
+        model.addAttribute("news", newsList);
         return "index.html";
     }
 
@@ -56,13 +58,13 @@ public class PortalController {
         return "login.html";
     }
 
-    @Transactional
-    @GetMapping("/list")
-    public String list(Model model) {
-        List<News> newsList = newsService.newsList();
-        model.addAttribute("news", newsList);
-        return "list.html";
-    }
+//    @Transactional
+//    @GetMapping("/list")
+//    public String list(Model model) {
+//        List<News> newsList = newsService.newsList();
+//        model.addAttribute("news", newsList);
+//        return "list.html";
+//    }
 
     @GetMapping("/register")
     public String registrition() {
