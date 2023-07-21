@@ -30,7 +30,14 @@
     <div class="divBody row">
         <p th:text="${news.body}"></p>
     </div>
-
+<div class="divButton row" > 
+  <!-- agregar al div:   sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"  -->
+   <a th:href="@{/news/editNews/__${news.id}__}">
+      <button type="button" class="btn btn-warning me-2">
+      Editar
+    </button></a
+  >
+</div>
       </div>
     </main>
 

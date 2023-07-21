@@ -34,7 +34,7 @@ public class News {
     @Column(columnDefinition = "LONGTEXT")
     private String body;
     
-//    @Temporal(TemporalType.DATE)
+
     private LocalDate dateLog;
     
     @OneToOne

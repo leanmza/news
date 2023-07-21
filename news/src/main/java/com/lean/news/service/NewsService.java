@@ -62,8 +62,9 @@ public class NewsService {
 
             news.setTitle(title);
             news.setBody(body);
-            
-             if (imageFile.getSize() == 0) {
+             
+            //QUEDE QUE CAMBIE LA IMAGEN SOLO SI VIENE UN ARCHIVO NUEVO, SINO DEJA LA QUE ESTABA
+             if (imageFile.getSize() != 0) {
                 news.setImage(null);
             } else {
                 String idImage = null;

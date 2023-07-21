@@ -9,8 +9,11 @@ import com.lean.news.service.NewsService;
 import java.io.IOException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +38,9 @@ public class NewsController {
         return "createNews.html";
     }
 
+//    @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR'')")
     @PostMapping("/postNews")
-    public String postNews(@RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile) {
+    public String postNews(@RequestParam String title, @RequestParam String body, MultipartFile imageFile) {
         try {
             newsService.createNews(title, body, imageFile);
             return "redirect:/";
@@ -57,11 +61,24 @@ public class NewsController {
         return "news.html";
     }
 
-    @PutMapping("/editNews/{id}")
-    public String editNews(@PathVariable String id, @RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile) {
+//    @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR'')")
+    @Transactional
+    @GetMapping("/editNews/{id}")
+    public String editNews (@PathVariable String id, ModelMap model){
+         System.out.println("id "+ id);
+         News news = newsService.getOne(id);
+         System.out.println("news " + news);
+        model.addAttribute("news", news);
+        return "editNews.html";
+    }
+    
+//    @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR'')")
+    @Transactional
+    @PostMapping("/editNews/{id}")
+    public String editNews(@PathVariable String id, @RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile, ModelMap model) {
         try {
             newsService.actualizeNews(id, title, body, imageFile);
-            return "index.html";
+            return "redirect:/";
         } catch (Exception e) {
             System.out.println("Error al actualizar la noticia");
             return "createNews.html";
@@ -69,3 +86,6 @@ public class NewsController {
 
     }
 }
+
+
+
