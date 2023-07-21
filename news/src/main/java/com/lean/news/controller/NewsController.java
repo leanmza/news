@@ -35,26 +35,26 @@ public class NewsController {
         return "createNews.html";
     }
 
-    @GetMapping("/{id}")
-    public String showNews(@PathVariable String id, Model model) {
-
-        News news = newsService.getOne(id);
-        model.addAttribute("news", news);
-//        return "news.html";
-        return "index.html";
-    }
-
     @PostMapping("/postNews")
     public String postNews(@RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile) {
         try {
             newsService.createNews(title, body, imageFile);
-            return "index.html";
+            return "redirect:/";
 
         } catch (Exception e) {
             System.out.println("Error en la carga de la noticia");
             return "createNews.html";
         }
 
+    }
+
+    @GetMapping("/{id}")
+    public String showNews(@PathVariable String id, Model model) {
+
+        News news = newsService.getOne(id);
+        model.addAttribute("news", news);
+//        return "news.html";
+        return "news.html";
     }
 
     @PutMapping("/editNews/{id}")

@@ -5,6 +5,7 @@
 package com.lean.news.entity;
 
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,6 +30,8 @@ public class News {
     private String id;
     
     private String title;
+    
+    @Column(columnDefinition = "LONGTEXT")
     private String body;
     
 //    @Temporal(TemporalType.DATE)

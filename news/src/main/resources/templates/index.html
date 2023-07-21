@@ -10,6 +10,7 @@
     <div class="container-fluid divMain">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" th:each="news : ${news}">
+        <a th:href="@{/news/__${news.id}__}">
         <div class="card h-100">
           
           <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top" alt="...">
@@ -20,6 +21,7 @@
             <p th:text="${news.id}"></p>
           </div>
         </div>
+        </a>
       </div>
  
 
