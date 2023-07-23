@@ -26,6 +26,7 @@
           ><button
             type="button"
             class="btn btn-primary me-2"
+            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')" 
           >
             Cargar Noticia
           </button></a

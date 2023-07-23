@@ -34,12 +34,13 @@ public class News {
     @Column(columnDefinition = "LONGTEXT")
     private String body;
     
-
     private LocalDate dateLog;
     
     @OneToOne
     private Image image;
     
+    @OneToOne
+    private Writer writer;
     
 
 }

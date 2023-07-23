@@ -74,4 +74,10 @@ public class ImageService {
     public List<Image> listarTodos() {
         return imageRepository.findAll();
     }
+    
+    
+    @Transactional
+    public Image getOne(String id) {
+        return imageRepository.getOne(id);
+    }
 }
