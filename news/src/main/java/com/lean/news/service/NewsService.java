@@ -36,9 +36,9 @@ public class NewsService {
     private ImageService imageService;
 
     @Transactional
-    public void createNews(String title, String body, MultipartFile imageFile, String idWriter) throws MyException {
-        System.out.println("servic");
-        validate(title, body, idWriter);
+    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail) throws MyException {
+
+        validate(title, body, writerEmail);
 
         News news = new News();
 
@@ -52,23 +52,17 @@ public class NewsService {
             news.setImage(image);
         }
 
-        Optional <Writer> optionalWriter = writerRepository.findById(idWriter);
-        
-        if (optionalWriter.isPresent()){
-            Writer writer = optionalWriter.get();
-              news.setWriter(writer);
-        }
-//        Writer writer = writerRepository.findById(idWriter).get(); //No uso optional porque para poder crear una noticia, el Writer tiene que estar logeado
+        Writer writer = writerRepository.findWriterByEmail(writerEmail);
 
-      
+        news.setWriter(writer);
 
         newsRepository.save(news);
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String idWriter) throws MyException {
+    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writer) throws MyException {
 
-        validate(title, body, idWriter);
+        validate(title, body, writer);
 
         Optional<News> optionalNews = newsRepository.findById(id);
 
@@ -104,7 +98,7 @@ public class NewsService {
         return newsRepository.getOne(id);
     }
 
-    private void validate(String title, String body, String idWriter) throws MyException {
+    private void validate(String title, String body, String writerEmail) throws MyException {
         if (title.isEmpty() || title == null) {
             throw new MyException("El título no puede estar vacío o ser nulo");
         }
@@ -113,7 +107,7 @@ public class NewsService {
             throw new MyException("El cuerpo de la noticia no puede estar vacío o ser nulo");
         }
 
-        if (idWriter.isEmpty() || idWriter == null) {
+        if (writerEmail.isEmpty() || writerEmail == null) {
             throw new MyException("El id del autor no puede estar vacío o ser nulo");
         }
     }

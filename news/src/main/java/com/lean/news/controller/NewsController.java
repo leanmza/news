@@ -5,10 +5,10 @@
 package com.lean.news.controller;
 
 import com.lean.news.entity.News;
+import com.lean.news.entity.Writer;
+import com.lean.news.exception.MyException;
 import com.lean.news.service.NewsService;
-import java.io.IOException;
 import java.security.Principal;
-import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,41 +41,46 @@ public class NewsController {
 
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @PostMapping("/postNews")
-    public String postNews(@RequestParam String title, @RequestParam String body, MultipartFile imageFile, HttpSession session) {
+    public String postNews(@RequestParam String title, @RequestParam String body,
+            MultipartFile imageFile, Principal principal) throws MyException {
+
+        String writerEmail = principal.getName();
+
         try {
-            String idWriter = session.getId();
-            System.out.println("controlador id writer + "+ idWriter );
-            newsService.createNews(title, body, imageFile, idWriter);
+
+            newsService.createNews(title, body, imageFile, writerEmail);
+
             return "redirect:/";
 
         } catch (Exception e) {
-            System.out.println("Error en la carga de la noticia");
+            System.out.println("Error en la carga de la noticia" + e.getMessage());
             return "createNews.html";
         }
 
     }
 
-
-
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @Transactional
     @GetMapping("/editNews/{id}")
-    public String editNews (@PathVariable String id, ModelMap model){
-         System.out.println("id "+ id);
-         News news = newsService.getOne(id);
-         System.out.println("news " + news);
+    public String editNews(@PathVariable String id, ModelMap model) {
+        System.out.println("id " + id);
+        News news = newsService.getOne(id);
+        System.out.println("news " + news);
         model.addAttribute("news", news);
         return "editNews.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @Transactional
     @PostMapping("/editNews/{id}")
-    public String editNews(@PathVariable String id, @RequestParam String title, @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile, ModelMap model, HttpSession session) {
+    public String editNews(@PathVariable String id, @RequestParam String title,
+            @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile,
+            ModelMap model, Principal principal) {
         try {
-            String idWriter = session.getId();
-       
-            newsService.actualizeNews(id, title, body, imageFile, idWriter);
+
+            String writerEmail = principal.getName();
+
+            newsService.actualizeNews(id, title, body, imageFile, writerEmail);
             return "redirect:/";
         } catch (Exception e) {
             System.out.println("Error al actualizar la noticia");
@@ -84,8 +88,8 @@ public class NewsController {
         }
 
     }
-    
-        @GetMapping("/{id}")
+
+    @GetMapping("/{id}")
     public String showNews(@PathVariable String id, Model model) {
 
         News news = newsService.getOne(id);
@@ -93,6 +97,3 @@ public class NewsController {
         return "news.html";
     }
 }
-
-
-
