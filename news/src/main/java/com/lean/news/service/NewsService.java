@@ -36,7 +36,8 @@ public class NewsService {
     private ImageService imageService;
 
     @Transactional
-    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail) throws MyException {
+    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail)
+            throws MyException {
 
         validate(title, body, writerEmail);
 
@@ -60,7 +61,8 @@ public class NewsService {
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writer) throws MyException {
+    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writer)
+            throws MyException {
 
         validate(title, body, writer);
 
@@ -112,4 +114,14 @@ public class NewsService {
         }
     }
 
+    @Transactional
+    public void deleteNews(String id) throws MyException {
+
+        System.out.println("id News " + id);
+        Optional<News> optionalNews = newsRepository.findById(id);
+        if (optionalNews.isPresent()) {
+            News news = optionalNews.get();
+            newsRepository.delete(news);
+        }
+    }
 }

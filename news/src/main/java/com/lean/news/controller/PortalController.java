@@ -3,9 +3,7 @@ package com.lean.news.controller;
 import com.lean.news.entity.News;
 import com.lean.news.entity.Reader;
 import com.lean.news.exception.MyException;
-
 import com.lean.news.service.NewsService;
-
 import com.lean.news.service.ReaderService;
 import com.lean.news.service.WriterService;
 import java.util.List;
@@ -48,10 +46,12 @@ public class PortalController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap model, @RequestParam(required = false) String success) throws UsernameNotFoundException {
+    public String login(@RequestParam(required = false) String error, ModelMap model, 
+            @RequestParam(required = false) String success) throws UsernameNotFoundException {
 
         if ("registerSuccess".equals(success)) {
-            model.put("registerSucces", "¡Gracias por registrarte en nuestra aplicación! Ahora puedes comenzar a utilizar nuestros servicios");
+            model.put("registerSucces", "¡Gracias por registrarte en nuestra aplicación! "
+                    + "Ahora puedes comenzar a utilizar nuestros servicios");
         }
 
         if (error != null) {

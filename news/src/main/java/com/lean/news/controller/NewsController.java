@@ -5,11 +5,9 @@
 package com.lean.news.controller;
 
 import com.lean.news.entity.News;
-import com.lean.news.entity.Writer;
 import com.lean.news.exception.MyException;
 import com.lean.news.service.NewsService;
 import java.security.Principal;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -44,9 +42,9 @@ public class NewsController {
     public String postNews(@RequestParam String title, @RequestParam String body,
             MultipartFile imageFile, Principal principal) throws MyException {
 
-        String writerEmail = principal.getName();
-
         try {
+
+            String writerEmail = principal.getName();
 
             newsService.createNews(title, body, imageFile, writerEmail);
 
@@ -95,5 +93,13 @@ public class NewsController {
         News news = newsService.getOne(id);
         model.addAttribute("news", news);
         return "news.html";
+    }
+    
+    @Transactional
+    @GetMapping("/deleteNews/{id}")
+    public String deleteNews(@PathVariable String id) throws MyException{
+        System.out.println("controlador " + id);
+        newsService.deleteNews(id);
+        return "redirect:/home";
     }
 }
