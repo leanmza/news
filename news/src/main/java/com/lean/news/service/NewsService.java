@@ -10,7 +10,7 @@ import com.lean.news.entity.Writer;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.NewsRepository;
 import com.lean.news.repository.WriterRepository;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public class NewsService {
 
         news.setTitle(title);
         news.setBody(body);
-        news.setDateLog(LocalDate.now());
+        news.setDateLog(LocalDateTime.now());
 
         if (imageFile != null) {
             System.out.println("hay imagen");
@@ -91,8 +91,11 @@ public class NewsService {
     @Transactional(readOnly = true)
     public List<News> newsList() {
         List<News> newsList = new ArrayList();
-        newsList = newsRepository.findAll();
+        newsList = newsRepository.listOrderedNews();
         return newsList;
+//              List<News> newsList = new ArrayList();
+//        newsList = newsRepository.findAll();
+//        return newsList;
     }
 
     @Transactional

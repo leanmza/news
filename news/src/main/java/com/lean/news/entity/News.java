@@ -4,14 +4,13 @@
  */
 package com.lean.news.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,8 +32,8 @@ public class News {
     
     @Column(columnDefinition = "LONGTEXT")
     private String body;
-    
-    private LocalDate dateLog;
+  
+    private LocalDateTime dateLog;
     
     @OneToOne
     private Image image;

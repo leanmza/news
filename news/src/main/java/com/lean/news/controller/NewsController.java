@@ -94,10 +94,10 @@ public class NewsController {
         model.addAttribute("news", news);
         return "news.html";
     }
-    
+
     @Transactional
     @GetMapping("/deleteNews/{id}")
-    public String deleteNews(@PathVariable String id) throws MyException{
+    public String deleteNews(@PathVariable String id) throws MyException {
         System.out.println("controlador " + id);
         newsService.deleteNews(id);
         return "redirect:/home";

@@ -21,5 +21,7 @@ public interface NewsRepository extends JpaRepository<News, String> {
     @Query("SELECT ne FROM News ne WHERE ne.title LIKE %:palabra%")
     public News findTitleByWord(@Param("palabra") String palabra);
 
+    @Query("SELECT ne FROM News ne ORDER BY ne.dateLog DESC")
+    public List<News> listOrderedNews();
 
 }
