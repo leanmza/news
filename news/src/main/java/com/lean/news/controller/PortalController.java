@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -72,11 +73,12 @@ public class PortalController {
     @PostMapping("/registerReader")
     public String registerReader(@RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password,
-            @RequestParam String password2, ModelMap modelo) throws MyException {
+            @RequestParam String password2, @RequestParam(required = false) MultipartFile imageFile,
+            ModelMap modelo) throws MyException {
 
         try {
 
-            readerService.registerReader(name, lastName, email, password, password2);
+            readerService.registerReader(name, lastName, email, password, password2, imageFile);
 
             return "redirect:/login?success=registerSuccess";
 
@@ -104,11 +106,12 @@ public class PortalController {
     @PostMapping("/registerWriter")
     public String registerWriter(@RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password,
-            @RequestParam String password2, ModelMap modelo) throws MyException {
+            @RequestParam String password2,@RequestParam(required = false) MultipartFile imageFile,
+            ModelMap modelo) throws MyException {
 
         try {
 
-           writerService.registerWriter(name, lastName, email, password, password2);
+           writerService.registerWriter(name, lastName, email, password, password2, imageFile);
 
             return "redirect:/login?success=registerSuccess";
 

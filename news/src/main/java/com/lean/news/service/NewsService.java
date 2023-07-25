@@ -48,7 +48,7 @@ public class NewsService {
         news.setDateLog(LocalDateTime.now());
 
         if (imageFile != null) {
-            System.out.println("hay imagen");
+          
             Image image = imageService.saveImage(imageFile);
             news.setImage(image);
         }
@@ -89,13 +89,10 @@ public class NewsService {
     }
 
     @Transactional(readOnly = true)
-    public List<News> newsList() {
+    public List<News> newsList() { //Muestra la noticia más nueva primero
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
         return newsList;
-//              List<News> newsList = new ArrayList();
-//        newsList = newsRepository.findAll();
-//        return newsList;
     }
 
     @Transactional

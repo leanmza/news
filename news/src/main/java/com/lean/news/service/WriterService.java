@@ -4,6 +4,7 @@
  */
 package com.lean.news.service;
 
+import com.lean.news.entity.ProfileImage;
 import com.lean.news.entity.Writer;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,7 +35,10 @@ public class WriterService implements UserDetailsService {
     @Autowired
     private WriterRepository writerRepository;
 
-    public void registerWriter(String name, String lastName, String email, String password, String password2) throws MyException {
+    @Autowired
+    private ProfileImageService profileImageService;
+
+    public void registerWriter(String name, String lastName, String email, String password, String password2, MultipartFile imageFile) throws MyException {
 
         validate(name, lastName, email, password, password2);
 
@@ -44,6 +49,12 @@ public class WriterService implements UserDetailsService {
         writer.setEmail(email);
         writer.setPassword(new BCryptPasswordEncoder().encode(password));
         writer.setRol(Rol.WRITER);
+
+        if (imageFile != null) {
+
+            ProfileImage profileImage = profileImageService.saveImage(imageFile);
+           writer.setProfileImage(profileImage);
+        }
 
         writerRepository.save(writer);
 

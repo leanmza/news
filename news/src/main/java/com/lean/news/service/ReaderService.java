@@ -1,10 +1,11 @@
 package com.lean.news.service;
 
+
+import com.lean.news.entity.ProfileImage;
 import com.lean.news.entity.Reader;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.ReaderRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -29,8 +31,13 @@ public class ReaderService implements UserDetailsService {
 
     @Autowired
     private ReaderRepository readerRepository;
+    
+    @Autowired
+    private ProfileImageService profileImageService;
 
-    public void registerReader(String name, String lastName, String email, String password, String password2) throws MyException {
+
+
+    public void registerReader(String name, String lastName, String email, String password, String password2, MultipartFile imageFile) throws MyException {
 
         validate(name, lastName, email, password, password2);
 
@@ -41,6 +48,13 @@ public class ReaderService implements UserDetailsService {
         reader.setEmail(email);
         reader.setPassword(new BCryptPasswordEncoder().encode(password));
         reader.setRol(Rol.READER);
+
+        if (imageFile != null) {
+   
+            ProfileImage profileImage = profileImageService.saveImage(imageFile);
+            reader.setProfileImage(profileImage);
+        }
+
 
         readerRepository.save(reader);
 
@@ -85,7 +99,7 @@ public class ReaderService implements UserDetailsService {
     }
 
     private boolean emailChecker(String email) { // Checks if the email already exists in the DB
-        boolean check = false; 
+        boolean check = false;
         Reader reader = readerRepository.findReaderByEmail(email);
         if (reader != null) {
             check = true;

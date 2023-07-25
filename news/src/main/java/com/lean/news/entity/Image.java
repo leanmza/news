@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,6 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Lean
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 public class Image {
 
@@ -22,7 +25,7 @@ public class Image {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String nombre;
+    private String name;
     private String mime;  // IDENTIFICA EL FORMATO DE LA IMAGEN
 
     @Lob

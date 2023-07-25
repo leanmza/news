@@ -28,7 +28,7 @@ public class ImageService {
             try {
                 Image image = new Image();
 
-                image.setNombre(imageFile.getName());
+                image.setName(imageFile.getName());
                 image.setMime(imageFile.getContentType());
                 image.setContent(imageFile.getBytes());
                 return imageRepository.save(image);
@@ -56,7 +56,7 @@ public class ImageService {
                     }
                 }
 
-                image.setNombre(imageFile.getName());
+                image.setName(imageFile.getName());
                 image.setMime(imageFile.getContentType());
                 image.setContent(imageFile.getBytes());
                 return imageRepository.save(image);
