@@ -39,7 +39,9 @@ public class ReaderService implements UserDetailsService {
 
     public void registerReader(String name, String lastName, String email, String password, String password2, MultipartFile imageFile) throws MyException {
 
-        validate(name, lastName, email, password, password2);
+        long fileSize = imageFile.getSize();
+        
+        validate(name, lastName, email, password, password2, fileSize);
 
         Reader reader = new Reader();
 
@@ -60,7 +62,7 @@ public class ReaderService implements UserDetailsService {
 
     }
 
-    private void validate(String name, String lastName, String email, String password, String password2) throws MyException {
+    private void validate(String name, String lastName, String email, String password, String password2, Long fileSize) throws MyException {
         if (emailChecker(email) == true) {
             throw new MyException("El email " + email + " ya se encuentra registrado");
         }
@@ -95,10 +97,13 @@ public class ReaderService implements UserDetailsService {
         if (!(password.equals(password2))) {
             throw new MyException("Las contraseñas no coinciden");
         }
+        if (fileSize > 2097152){
+            throw new MyException("El tamaño de la imagen supera el máximo de 2mb");
+    }
 
     }
 
-    private boolean emailChecker(String email) { // Checks if the email already exists in the DB
+    private boolean emailChecker(String email) { // Verifica si el email ya existe en la BD
         boolean check = false;
         Reader reader = readerRepository.findReaderByEmail(email);
         if (reader != null) {

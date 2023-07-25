@@ -40,7 +40,9 @@ public class WriterService implements UserDetailsService {
 
     public void registerWriter(String name, String lastName, String email, String password, String password2, MultipartFile imageFile) throws MyException {
 
-        validate(name, lastName, email, password, password2);
+        long fileSize = imageFile.getSize();
+
+        validate(name, lastName, email, password, password2, fileSize);
 
         Writer writer = new Writer();
 
@@ -53,14 +55,14 @@ public class WriterService implements UserDetailsService {
         if (imageFile != null) {
 
             ProfileImage profileImage = profileImageService.saveImage(imageFile);
-           writer.setProfileImage(profileImage);
+            writer.setProfileImage(profileImage);
         }
 
         writerRepository.save(writer);
 
     }
 
-    private void validate(String name, String lastName, String email, String password, String password2) throws MyException {
+    private void validate(String name, String lastName, String email, String password, String password2, Long fileSize) throws MyException {
         if (emailChecker(email) == true) {
             throw new MyException("El email " + email + " ya se encuentra registrado");
         }
@@ -94,6 +96,9 @@ public class WriterService implements UserDetailsService {
         }
         if (!(password.equals(password2))) {
             throw new MyException("Las contraseñas no coinciden");
+        }
+        if (fileSize > 2097152) {
+            throw new MyException("El tamaño de la imagen supera el máximo de 2mb");
         }
 
     }
