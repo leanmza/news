@@ -40,13 +40,14 @@ public class NewsController {
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @PostMapping("/postNews")
     public String postNews(@RequestParam String title, @RequestParam String body,
-            MultipartFile imageFile, Principal principal) throws MyException {
+            @RequestParam String category, MultipartFile imageFile, Principal principal)
+            throws MyException {
 
         try {
 
             String writerEmail = principal.getName();
 
-            newsService.createNews(title, body, imageFile, writerEmail);
+            newsService.createNews(title, body, imageFile, writerEmail, category);
 
             return "redirect:/";
 
@@ -72,13 +73,13 @@ public class NewsController {
     @Transactional
     @PostMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, @RequestParam String title,
-            @RequestParam String body, @RequestParam(required = false) MultipartFile imageFile,
-            ModelMap model, Principal principal) {
+            @RequestParam String category, @RequestParam String body,
+            @RequestParam(required = false) MultipartFile imageFile,  ModelMap model, Principal principal) throws MyException{
         try {
 
             String writerEmail = principal.getName();
 
-            newsService.actualizeNews(id, title, body, imageFile, writerEmail);
+            newsService.actualizeNews(id, title, body, imageFile, writerEmail, category);
             return "redirect:/";
         } catch (Exception e) {
             System.out.println("Error al actualizar la noticia");

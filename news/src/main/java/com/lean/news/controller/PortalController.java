@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -133,10 +134,13 @@ public class PortalController {
     @PreAuthorize("hasAnyRole('ROLE_READER', 'ROLE_WRITER')")
     @GetMapping("/home")
     public String home(HttpSession session, ModelMap model) {
-        List<News>newsList = newsService.newsList();
+        
+        List<News> newsList = newsService.newsList();
+        
         model.addAttribute("news", newsList);
         
-        if (( (session.getAttribute("readerSession") != null))  || (session.getAttribute("writerSession") != null)) {
+        if (( (session.getAttribute("readerSession") != null))  || (session.getAttribute("writerSession") != null)) { //REVISAR ACA, FALTA MANEJAR WRITER
+            
             Reader logged = (Reader) session.getAttribute("readerSession");
             model.put("readerSession", logged);
 
@@ -148,5 +152,16 @@ public class PortalController {
         
 
         return "home.html";
+    }
+    
+    @Transactional
+    @GetMapping("/category/{category}")
+    public String category(@PathVariable String category, ModelMap model){
+        
+        List<News> newsList = newsService.categoryList(category);
+        
+        model.addAttribute("news", newsList);
+        
+        return "category.html";
     }
 }

@@ -1,7 +1,9 @@
 package com.lean.news.controller;
 
 import com.lean.news.entity.News;
+import com.lean.news.entity.Reader;
 import com.lean.news.service.NewsService;
+import com.lean.news.service.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class ImageController {
 
     @Autowired
     NewsService newsService;
+     
+    @Autowired
+   ReaderService readerService;
 
     @Transactional
     @GetMapping("/news/{id}")
@@ -30,6 +35,20 @@ public class ImageController {
         News news = newsService.getOne(id);
 
         byte[] image = news.getImage().getContent();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<>(image, headers, HttpStatus.OK);
+    }
+
+    @Transactional
+    @GetMapping("/user/{id}")
+    public ResponseEntity<byte[]> profileImageNews(@PathVariable String id) {
+        Reader reader = readerService.getOne(id);
+
+        byte[] image = reader.getProfileImage().getContent();
 
         HttpHeaders headers = new HttpHeaders();
 

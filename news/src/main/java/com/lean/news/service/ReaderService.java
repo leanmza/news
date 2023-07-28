@@ -1,6 +1,5 @@
 package com.lean.news.service;
 
-
 import com.lean.news.entity.ProfileImage;
 import com.lean.news.entity.Reader;
 import com.lean.news.enums.Rol;
@@ -18,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,16 +31,14 @@ public class ReaderService implements UserDetailsService {
 
     @Autowired
     private ReaderRepository readerRepository;
-    
+
     @Autowired
     private ProfileImageService profileImageService;
-
-
 
     public void registerReader(String name, String lastName, String email, String password, String password2, MultipartFile imageFile) throws MyException {
 
         long fileSize = imageFile.getSize();
-        
+
         validate(name, lastName, email, password, password2, fileSize);
 
         Reader reader = new Reader();
@@ -52,11 +50,10 @@ public class ReaderService implements UserDetailsService {
         reader.setRol(Rol.READER);
 
         if (imageFile != null) {
-   
+
             ProfileImage profileImage = profileImageService.saveImage(imageFile);
             reader.setProfileImage(profileImage);
         }
-
 
         readerRepository.save(reader);
 
@@ -97,9 +94,9 @@ public class ReaderService implements UserDetailsService {
         if (!(password.equals(password2))) {
             throw new MyException("Las contraseñas no coinciden");
         }
-        if (fileSize > 2097152){
+        if (fileSize > 2097152) {
             throw new MyException("El tamaño de la imagen supera el máximo de 2mb");
-    }
+        }
 
     }
 
@@ -143,6 +140,11 @@ public class ReaderService implements UserDetailsService {
             }
         }
         return hasLowerCase;
+    }
+
+    @Transactional
+    public Reader getOne(String id) {
+        return readerRepository.getOne(id);
     }
 
     @Override

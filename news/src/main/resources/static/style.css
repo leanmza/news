@@ -1,31 +1,47 @@
-body{
-    background-color: #EEE !important;
-}
-.divMain{
-    /* max-width: 1200px; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body {
+  background-color: #eee !important;
 }
 
-.h-custom {
-height: calc(100% - 73px);
-}
-@media (max-width: 450px) {
-.h-custom {
-height: 100%;
-}
-}
-
-.rowForm{
-
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 32px 32px;
+header {
+  background-color: rgb(245, 68, 68);
+  min-height: 80px;
+  max-height: 100px;
+  justify-content: center;
+  display: flex;
 }
 
-.btnSubmit{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+.link:link,
+.link:visited,
+.link:active
+.link:hover{
+    text-decoration: none;
+    color: #fff !important;
+}
+
+
+.divHeader {
+  align-items: center;
+  width: 1200px;
+}
+
+.logoHeader {
+  max-height: 70px;
+}
+.divMain {
+  /* max-width: 1200px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rowForm {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 32px;
+}
+
+.btnSubmit {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }

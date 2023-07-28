@@ -7,6 +7,7 @@ package com.lean.news.service;
 import com.lean.news.entity.Image;
 import com.lean.news.entity.News;
 import com.lean.news.entity.Writer;
+import com.lean.news.enums.Category;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.NewsRepository;
 import com.lean.news.repository.WriterRepository;
@@ -36,10 +37,10 @@ public class NewsService {
     private ImageService imageService;
 
     @Transactional
-    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail)
+    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail, String category)
             throws MyException {
 
-        validate(title, body, writerEmail);
+        validate(title, body, writerEmail, category);
 
         News news = new News();
 
@@ -48,7 +49,7 @@ public class NewsService {
         news.setDateLog(LocalDateTime.now());
 
         if (imageFile != null) {
-          
+
             Image image = imageService.saveImage(imageFile);
             news.setImage(image);
         }
@@ -57,14 +58,16 @@ public class NewsService {
 
         news.setWriter(writer);
 
+        news.setCategory(Category.valueOf(category));
+
         newsRepository.save(news);
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writer)
+    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writerEmail, String category)
             throws MyException {
 
-        validate(title, body, writer);
+        validate(title, body, writerEmail, category);
 
         Optional<News> optionalNews = newsRepository.findById(id);
 
@@ -84,23 +87,15 @@ public class NewsService {
 
             }
 
+            news.setCategory(Category.valueOf(category));
+
             newsRepository.save(news);
         }
     }
 
-    @Transactional(readOnly = true)
-    public List<News> newsList() { //Muestra la noticia más nueva primero
-        List<News> newsList = new ArrayList();
-        newsList = newsRepository.listOrderedNews();
-        return newsList;
-    }
 
-    @Transactional
-    public News getOne(String id) {
-        return newsRepository.getOne(id);
-    }
 
-    private void validate(String title, String body, String writerEmail) throws MyException {
+    private void validate(String title, String body, String writerEmail, String category) throws MyException {
         if (title.isEmpty() || title == null) {
             throw new MyException("El título no puede estar vacío o ser nulo");
         }
@@ -112,6 +107,28 @@ public class NewsService {
         if (writerEmail.isEmpty() || writerEmail == null) {
             throw new MyException("El id del autor no puede estar vacío o ser nulo");
         }
+
+        if (checkCategory(category) == false) {
+            throw new MyException("La categoría ingresada no es válida");
+        }
+    }
+    
+    
+    private boolean checkCategory(String category) {
+
+        boolean check = false;
+        
+        Category[] listCategorys = Category.values();
+        
+        for (int i = 0; i < listCategorys.length; i++) {
+            
+            if (category.equals(listCategorys[i])){
+                check = true;
+                break;
+                
+            }
+        }
+        return check;
     }
 
     @Transactional
@@ -123,5 +140,24 @@ public class NewsService {
             News news = optionalNews.get();
             newsRepository.delete(news);
         }
+    }
+    
+        @Transactional(readOnly = true)
+    public List<News> newsList() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+        newsList = newsRepository.listOrderedNews();
+        return newsList;
+    }
+
+    @Transactional
+    public News getOne(String id) {
+        return newsRepository.getOne(id);
+    }
+    
+            @Transactional(readOnly = true)
+    public List<News> categoryList(String category) { //Muestra muestra las noticias de la category con la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+        newsList = newsRepository.listNewsByCategory(category);
+        return newsList;
     }
 }

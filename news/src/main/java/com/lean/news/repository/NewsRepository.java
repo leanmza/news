@@ -23,5 +23,8 @@ public interface NewsRepository extends JpaRepository<News, String> {
 
     @Query("SELECT ne FROM News ne ORDER BY ne.dateLog DESC")
     public List<News> listOrderedNews();
+    
+    @Query("SELECT  ne FROM News ne WHERE ne.category = :category ORDER BY ne.dateLog DESC")
+    public List<News>listNewsByCategory(@Param("category") String category);
 
 }
