@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
  *
  * @author Lean
@@ -164,4 +165,16 @@ public class PortalController {
         
         return "category.html";
     }
+    
+        @Transactional
+    @GetMapping("/search")
+    public String searchNewsByTitle(@RequestParam("word") String word, ModelMap model){
+            System.out.println("word " +word);
+        List<News> newsList = newsService.findNewsByTitle(word);
+        
+        model.addAttribute("news", newsList);
+        
+        return "index.html";
+    }
+    
 }

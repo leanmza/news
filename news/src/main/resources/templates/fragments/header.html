@@ -35,9 +35,20 @@
       </ul>
     </div>
     <div class="divSearch col-2">
-      <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                  <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-                </form> -->
+      <form role="search"        
+      th:action="@{/search}"
+      method="GET"
+      class="form"
+      id="formLogin">
+
+      <input 
+      th:name="word" 
+      id="word"
+      type="search" 
+      class="form-control" 
+      placeholder="Buscar" aria-label="Search">
+ 
+        </form>
     </div>
 
       <div class="divLogin col-2">

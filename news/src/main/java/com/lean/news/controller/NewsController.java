@@ -79,7 +79,7 @@ public class NewsController {
 
             String writerEmail = principal.getName();
 
-            newsService.actualizeNews(id, title, body, imageFile, writerEmail, category);
+            newsService.actualizeNews(id, title, body, category, imageFile, writerEmail);
             return "redirect:/";
         } catch (Exception e) {
             System.out.println("Error al actualizar la noticia");

@@ -39,7 +39,7 @@ public class NewsService {
     @Transactional
     public void createNews(String title, String body, MultipartFile imageFile, String writerEmail, String category)
             throws MyException {
-    
+
         validate(title, body, writerEmail, category);
 
         News news = new News();
@@ -57,7 +57,6 @@ public class NewsService {
         Writer writer = writerRepository.findWriterByEmail(writerEmail);
 
         news.setWriter(writer);
-    
 
         news.setCategory(Category.valueOf(category));
 
@@ -65,7 +64,7 @@ public class NewsService {
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writerEmail, String category)
+    public void actualizeNews(String id, String title, String body, String category, MultipartFile imageFile, String writerEmail )
             throws MyException {
 
         validate(title, body, writerEmail, category);
@@ -73,6 +72,7 @@ public class NewsService {
         Optional<News> optionalNews = newsRepository.findById(id);
 
         if (optionalNews.isPresent()) {
+            
             News news = optionalNews.get();
 
             news.setTitle(title);
@@ -94,8 +94,6 @@ public class NewsService {
         }
     }
 
-
-
     private void validate(String title, String body, String writerEmail, String category) throws MyException {
         if (title.isEmpty() || title == null) {
             throw new MyException("El título no puede estar vacío o ser nulo");
@@ -113,21 +111,20 @@ public class NewsService {
             throw new MyException("La categoría ingresada no es válida");
         }
     }
-    
-    
+
     private boolean checkCategory(String category) {
 
         boolean check = false;
-        
+
         Category[] listCategorys = Category.values();
-        
+
         for (int i = 0; i < listCategorys.length; i++) {
-     
-            if (category.equals(listCategorys[i].toString())){
+
+            if (category.equals(listCategorys[i].toString())) {
                 check = true;
 
                 break;
-                
+
             }
         }
         return check;
@@ -143,8 +140,8 @@ public class NewsService {
             newsRepository.delete(news);
         }
     }
-    
-        @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public List<News> newsList() { //Muestra la noticia más nueva primero
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
@@ -155,14 +152,23 @@ public class NewsService {
     public News getOne(String id) {
         return newsRepository.getOne(id);
     }
-    
-            @Transactional(readOnly = true)
-    public List<News> categoryList(String category) { //Muestra muestra las noticias de la category con la noticia más nueva primero
-                System.out.println("category service " + category );
+
+    @Transactional(readOnly = true)
+    public List<News> findNewsByTitle(String word) { //Muestra las noticias con la palabra buscada
         List<News> newsList = new ArrayList();
-        
-        Category categoryEnum = Category.valueOf(category.toUpperCase());
+        newsList = newsRepository.findTitleByWord(word);
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> categoryList(String category) { //Muestra muestra las noticias de la category con la noticia más nueva primero
+
+        List<News> newsList = new ArrayList();
+
+        Category categoryEnum = Category.valueOf(category.toUpperCase());// Category viene en minúsculas del HTML, lo paso a mayúsculas 
+
         newsList = newsRepository.listNewsByCategory(categoryEnum);
+
         return newsList;
     }
 }
