@@ -64,7 +64,7 @@ public class NewsService {
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, String category, MultipartFile imageFile, String writerEmail )
+    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writerEmail, String category)
             throws MyException {
 
         validate(title, body, writerEmail, category);
@@ -78,7 +78,7 @@ public class NewsService {
             news.setTitle(title);
             news.setBody(body);
 
-            if (!(imageFile.isEmpty())) { ///Comprueba si el imageFile no está vacio 
+            if (! (imageFile.isEmpty() ) ) { ///Comprueba si el imageFile no está vacio 
 
                 String idImage = news.getImage().getId(); // idImage toma el valor del id de la imagen existente
 
@@ -87,6 +87,7 @@ public class NewsService {
                 news.setImage(image); //Establece la imagen nueva
 
             }
+            
 
             news.setCategory(Category.valueOf(category));
 
