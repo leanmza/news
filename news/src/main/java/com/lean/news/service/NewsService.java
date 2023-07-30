@@ -39,7 +39,7 @@ public class NewsService {
     @Transactional
     public void createNews(String title, String body, MultipartFile imageFile, String writerEmail, String category)
             throws MyException {
-
+    
         validate(title, body, writerEmail, category);
 
         News news = new News();
@@ -57,6 +57,7 @@ public class NewsService {
         Writer writer = writerRepository.findWriterByEmail(writerEmail);
 
         news.setWriter(writer);
+    
 
         news.setCategory(Category.valueOf(category));
 
@@ -121,9 +122,10 @@ public class NewsService {
         Category[] listCategorys = Category.values();
         
         for (int i = 0; i < listCategorys.length; i++) {
-            
-            if (category.equals(listCategorys[i])){
+     
+            if (category.equals(listCategorys[i].toString())){
                 check = true;
+
                 break;
                 
             }
@@ -156,8 +158,11 @@ public class NewsService {
     
             @Transactional(readOnly = true)
     public List<News> categoryList(String category) { //Muestra muestra las noticias de la category con la noticia más nueva primero
+                System.out.println("category service " + category );
         List<News> newsList = new ArrayList();
-        newsList = newsRepository.listNewsByCategory(category);
+        
+        Category categoryEnum = Category.valueOf(category.toUpperCase());
+        newsList = newsRepository.listNewsByCategory(categoryEnum);
         return newsList;
     }
 }

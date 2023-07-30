@@ -10,13 +10,7 @@
     <main>
       <div class="container-fluid containerForm">
         <div class="row rowForm">
-          <!-- <div class="col-md-9 col-lg-6 col-xl-5">
-            <img
-                src="../Blogging-pana.png"
-              class="img-fluid"
-              alt="Sample image"
-            />
-          </div> -->
+
           <div class="col-md-10 col-lg-8 col-xl-8 ">
                   <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
         <p class="custom-success-message mensaje" th:text="${success}">
@@ -31,69 +25,85 @@
   </div>
 </div>
 
-
             <form
-              th:action="@{/news/editNews/__${news.id}__}"
-              method="POST"
-              class="form"
-              id="formLogin"
-              enctype="multipart/form-data"
-            >
-                
-              <!-- Title input -->
-              <div class="form-outline mb-4">
-                <input
-                  type="text"
-                  id="title"
-                  class="form-control form-control-lg"
-                  placeholder="Título"
-                  name="title"
-                  th:value="${news.title}"
-                 
-                   
-                />
-                <label class="form-label" for="title">Título</label>
-              </div>
+            th:action="@{/news/postNews}"
+            method="POST"
+            class="form"
+            id="formLogin"
+            enctype="multipart/form-data"
+          >
+              
+            <!-- Title input -->
+            <div class="form-outline mb-3 col-12">
+              <input
+                type="text"
+                id="title"
+                class="form-control form-control-lg"
+                placeholder="Título"
+                name="title"
+                th:value="${news.title}"
+              />
+              <label class="form-label" for="title">Título</label>
+            </div>
 
-              <!-- Body input -->
-              <div class="form-outline mb-3">
-                <textarea 
-                name="body" 
-                id="body" 
-                cols="30" 
-                rows="15" 
-                class="form-control form-control-lg" 
-                placeholder="Cuerpo de la noticia"
-                th:text="${news.body}"
-                ></textarea>
+            <!-- Body input -->
+            <div class="form-outline mb-3 col-12">
+              <textarea 
+              name="body" 
+              id="body" 
+              cols="30" 
+              rows="15" 
+              class="form-control form-control-lg" 
+              placeholder="Cuerpo de la noticia"
+              th:text="${news.body}"></textarea>
+        
+              <label class="form-label" for="body">Cuerpo de la noticia</label>
+            </div>
+            <div class="row">
+
+            <!-- Category input -->
+            <div class="form-outline mb-2 col-4">
+              <select
+                id="category"
+                class="form-control form-control-lg"
+                placeholder="Categoría"
+                name="category"
+              >
+              <option value="MENDOZA" th:selected="${news.category}">MENDOZA</option>
+              <option value="PAIS" th:selected="${news.category}">PAÍS</option>
+              <option value="DEPORTES" th:selected="${news.category}">DEPORTES</option>
+              <option value="POLICIALES" th:selected="${news.category}">POLICIALES</option>
+              <option value="LIBROS" th:selected="${news.category}">LIBROS</option>
           
-                <label class="form-label" for="body">Cuerpo de la noticia</label>
-              </div>
+            </select>
+              <label class="form-label" for="title">Categoría</label>
+              
+            </div>              
 
-              <!-- Image input -->
-              <div class="form-outline mb-3">
-                <input
-                  type="file"
-                  id="image"
-                  class="form-control form-control-lg"
-                  placeholder="Subir imagen"
-                  name="imageFile"
-                          />
-                <label class="form-label" for="image">Subir imagen</label>
-              </div>
+            <!-- Image input -->
+            <div class="form-outline mb-2 col-5 offset-1">
+              <input
+                type="file"
+                id="image"
+                class="form-control form-control-lg"
+                placeholder="Subir imagen"
+                name="imageFile"
+              />
+              <label class="form-label" for="image">Subir imagen</label>
+            </div>
+          </div>
 
-              <div class="text-center text-lg-start mt-4 pt-2">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-lg btnSubmit"
-                  id="btnSubmit"
-
-                >
-                  Guardar Noticia
-                </button>
-            
-              </div>
-            </form>
+            <div class="text-center text-lg-start mt-2 pt-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg btnSubmit"
+                id="btnSubmit"
+              >
+                Guardar Noticia
+              </button>
+          
+            </div>
+          </form>
           </div>
         </div>
       </div>

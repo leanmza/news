@@ -10,13 +10,7 @@
     <main>
       <div class="container-fluid containerForm">
         <div class="row rowForm">
-          <!-- <div class="col-md-9 col-lg-6 col-xl-5">
-            <img
-                src="../Blogging-pana.png"
-              class="img-fluid"
-              alt="Sample image"
-            />
-          </div> -->
+
           <div class="col-md-10 col-lg-8 col-xl-8 ">
                   <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
         <p class="custom-success-message mensaje" th:text="${success}">
@@ -41,7 +35,7 @@
             >
                 
               <!-- Title input -->
-              <div class="form-outline mb-4">
+              <div class="form-outline mb-3 col-12">
                 <input
                   type="text"
                   id="title"
@@ -53,7 +47,7 @@
               </div>
 
               <!-- Body input -->
-              <div class="form-outline mb-3">
+              <div class="form-outline mb-3 col-12">
                 <textarea 
                 name="body" 
                 id="body" 
@@ -64,9 +58,28 @@
           
                 <label class="form-label" for="body">Cuerpo de la noticia</label>
               </div>
+              <div class="row">
+              <!-- Category input -->
+              <div class="form-outline mb-2 col-4">
+                <select
+                  id="category"
+                  class="form-control form-control-lg"
+                  placeholder="Categoría"
+                  name="category"
+                >
+                <option value="MENDOZA">MENDOZA</option>
+                <option value="PAIS">PAÍS</option>
+                <option value="DEPORTES">DEPORTES</option>
+                <option value="POLICIALES">POLICIALES</option>
+                <option value="LIBROS">LIBROS</option>
+            
+              </select>
+                <label class="form-label" for="title">Categoría</label>
+                
+              </div>              
 
               <!-- Image input -->
-              <div class="form-outline mb-3">
+              <div class="form-outline mb-2 col-5 offset-1">
                 <input
                   type="file"
                   id="image"
@@ -76,8 +89,9 @@
                 />
                 <label class="form-label" for="image">Subir imagen</label>
               </div>
+            </div>
 
-              <div class="text-center text-lg-start mt-4 pt-2">
+              <div class="text-center text-lg-start mt-2 pt-2">
                 <button
                   type="submit"
                   class="btn btn-primary btn-lg btnSubmit"

@@ -2,10 +2,11 @@ body {
   background-color: #eee !important;
 }
 
+/* HEADER */
 header {
   background-color: rgb(245, 68, 68);
   min-height: 80px;
-  max-height: 100px;
+  max-height: 120px;
   justify-content: center;
   display: flex;
 }
@@ -17,16 +18,22 @@ header {
     text-decoration: none;
     color: #fff !important;
 }
+.logoHeader{
+  max-height: 100px;
+}
 
+.profilePicture{
+  max-height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 
 .divHeader {
   align-items: center;
   width: 1200px;
 }
 
-.logoHeader {
-  max-height: 70px;
-}
+
 .divMain {
   /* max-width: 1200px; */
   display: flex;

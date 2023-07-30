@@ -11,16 +11,16 @@
       </a>
       </div>
 
-      <div class="divMenu col-6">
+      <div class="divMenu col-7">
       <ul
         class="nav"  
       >
-        <li><a href="/" class="nav-link link">MENDOZA</a></li>
-        <li><a href="/" class="nav-link link">PAÍS</a></li>
-        <li><a href="/" class="nav-link link">DEPORTES</a></li>
-        <li><a href="/" class="nav-link link">POLICIALES</a></li>
-        <li><a href="/" class="nav-link link">LIBROS</a></li>
-
+        <li><a th:href="@{/category/__${'mendoza'}__}" class="nav-link link">MENDOZA</a></li>
+        <li><a th:href="@{/category/__${'pais'}__}" class="nav-link link">PAÍS</a></li>
+        <li><a th:href="@{/category/__${'deportes'}__}" class="nav-link link">DEPORTES</a></li>
+        <li><a th:href="@{/category/__${'policiales'}__}" class="nav-link link">POLICIALES</a></li>
+        <li><a th:href="@{/category/__${'libros'}__}" class="nav-link link">LIBROS</a></li>
+       
         <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
         <a href="/news/createNews"
           ><button
@@ -40,7 +40,7 @@
                 </form> -->
     </div>
 
-      <div class="divLogin col-3">
+      <div class="divLogin col-2">
         <!-- ESTE DIV SE MUESTRA SI NO HAY USUARIO LOGUEADO -->
         <div
           class="divGuest"
@@ -62,7 +62,7 @@
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         
             <!-- Si el esta logueado Reader -->
-            <img class="imagen-perfil" 
+            <img class="profilePicture" 
             th:if="${session.readerSession != null}" 
                  th:src="@{/image/user/__${session.readerSession.id}__}">
             <!-- -------------------------- -->

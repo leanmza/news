@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/fragments/head :: head"></head>
+    <body>
+  
+        <header th:replace="/fragments/header :: header"> </header>
+      
+
+  <main>
+    <div class="container-fluid divMain">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" th:each="news : ${news}">
+        <a th:href="@{/news/__${news.id}__}">
+        <div class="card h-100">
+          
+          <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top" alt="...">
+ 
+
+          <!-- <div class="card-body"> -->
+            <h5 class="card-title" th:text="${news.title}">Card title</h5>
+            <p th:text="${news.id}"></p>
+          <!-- </div> -->
+        </div>
+        </a>
+      </div>
+ 
+
+    </div>
+  </div>
+      
+      
+  </main>
+        
+                <!--<footer th:replace="/fragments/footer :: footer"> </footer>-->
+
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"
+  ></script>
+    </body>
+</html>

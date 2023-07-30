@@ -62,9 +62,9 @@ public class NewsController {
     @Transactional
     @GetMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, ModelMap model) {
-        System.out.println("id " + id);
+ 
         News news = newsService.getOne(id);
-        System.out.println("news " + news);
+       
         model.addAttribute("news", news);
         return "editNews.html";
     }
