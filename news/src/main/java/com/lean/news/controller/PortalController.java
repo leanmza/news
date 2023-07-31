@@ -157,18 +157,18 @@ public class PortalController {
     
     @Transactional
     @GetMapping("/category/{category}")
-    public String category(@PathVariable String category, ModelMap model){
+    public String category(@PathVariable String category, Model model){
         
         List<News> newsList = newsService.categoryList(category);
         
         model.addAttribute("news", newsList);
-        
+                
         return "category.html";
     }
     
         @Transactional
     @GetMapping("/search")
-    public String searchNewsByTitle(@RequestParam("word") String word, ModelMap model){
+    public String searchNewsByTitle(@RequestParam("word") String word, Model model){
             System.out.println("word " +word);
         List<News> newsList = newsService.findNewsByTitle(word);
         

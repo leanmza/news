@@ -10,7 +10,7 @@
     <main>
       <div class="container-fluid divMain row">
         <div class="divTitle row">
-          <h5 th:text="${news.category}"></h5>
+          <a th:href="@{/category/__${news.category}__}" class="link"><h5 th:text="${news.category}"></h5></a> 
       </div>
 
 <div class="divTitle row">

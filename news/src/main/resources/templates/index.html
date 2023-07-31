@@ -8,20 +8,21 @@
 
   <main>
     <div class="container-fluid divMain">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col" th:each="news : ${news}">
-        <a th:href="@{/news/__${news.id}__}">
+    <div class="row row-cols-1 ">
+      <div class="col-3" th:each="news : ${news}">
+       
         <div class="card h-100">
           
           <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top" alt="...">
  
 
-          <!-- <div class="card-body"> -->
-            <h5 class="card-title" th:text="${news.title}">Card title</h5>
-            <p th:text="${news.id}"></p>
-          <!-- </div> -->
+          <div class="card-img-overlay">
+            <a th:href="@{/category/__${news.category}__}" class="link"><h6 class="card-category" th:text="${news.category}"></h6></a>
+            <a th:href="@{/news/__${news.id}__}" class="link"><h2 class="card-title" th:text="${news.title}">Card title</h2></a>
+            
+          </div>
         </div>
-        </a>
+        
       </div>
  
 
