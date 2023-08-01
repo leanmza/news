@@ -9,11 +9,11 @@
   <main>
     <div class="container-fluid divMain">
     <div class="row row-cols-1 ">
-      <div class="col-3" th:each="news : ${news}">
+      <div class="col-xs-12 col-sm-4 col-lg-3 colCard" th:each="news : ${news}">
        
         <div class="card h-100">
           
-          <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top" alt="...">
+          <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top cardImg" alt="...">
  
 
           <div class="card-img-overlay">

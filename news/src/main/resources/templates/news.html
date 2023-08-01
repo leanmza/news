@@ -8,17 +8,23 @@
     <header th:replace="/fragments/header :: header"></header>
 
     <main>
-      <div class="container-fluid divMain row">
-        <div class="divTitle row">
-          <a th:href="@{/category/__${news.category}__}" class="link"><h5 th:text="${news.category}"></h5></a> 
-      </div>
+      <div class="container-fluid divMain news">
+  
+          <div class="categoryDiv">
+          <a th:href="@{/category/__${news.category}__}" class="link"><h6 th:text="${news.category}"></h6></a> 
+        </div>
+
+  
 
 <div class="divTitle row">
         <h1 th:text="${news.title}"></h1>
     </div>
-    <div class="divDate">
-        <h6 th:text="${news.dateLog}"></h6>
-      </div>
+<div class="divWriter">
+  <a th:href="@{/writer/__${news.writer.id}__}" class="link"><h6 th:text="${news.writer.name}"></h6></a>
+</div>
+    <div class="divDate col-2">
+      <p th:text="${news.dateLog}"></p>
+    </div>
 
     <div class="divImage row">
         <img
@@ -30,7 +36,7 @@
     </div>
 
     <div class="divBody row">
-        <p th:text="${news.body}"></p>
+        <p th:text="${news.body}" class="bodyNews"></p>
     </div>
 <div class="divButton row" sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')" > 
   <!-- agregar al div:   sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"  -->

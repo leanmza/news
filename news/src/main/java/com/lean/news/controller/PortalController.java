@@ -152,7 +152,7 @@ public class PortalController {
         }
         
 
-        return "home.html";
+        return "index.html";
     }
     
     @Transactional
@@ -163,7 +163,7 @@ public class PortalController {
         
         model.addAttribute("news", newsList);
                 
-        return "category.html";
+        return "index.html";
     }
     
         @Transactional
@@ -174,6 +174,17 @@ public class PortalController {
         
         model.addAttribute("news", newsList);
         
+        return "index.html";
+    }
+    
+        @Transactional
+    @GetMapping("/writer/{id}")
+    public String filterByWriter(@PathVariable String id, Model model){
+        
+        List<News> newsList = newsService.findNewsByWriter(id);
+        
+        model.addAttribute("news", newsList);
+                
         return "index.html";
     }
     

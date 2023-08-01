@@ -172,4 +172,13 @@ public class NewsService {
 
         return newsList;
     }
+    
+        @Transactional(readOnly = true)
+    public List<News> findNewsByWriter(String id) { //Muestra las noticias con la palabra buscada
+        Writer writer = writerRepository.findById(id).get();
+        
+        List<News> newsList = new ArrayList();
+        newsList = newsRepository.listNewsByWriter(writer);
+        return newsList;
+    }
 }
