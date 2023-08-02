@@ -1,108 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head th:replace= "/fragments/head :: head" </head>
-  <body>
+    <head th:replace= "/fragments/head :: head" </head>
+    <body>
 
-    <div>
-      <header th:replace="/fragments/header :: header" </header>
-      </div>
-
-    <main>
-      <div class="container-fluid containerForm">
-        <div class="row rowForm">
-          <div class="col-md-9 col-lg-6 col-xl-5">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-              class="img-fluid"
-              alt="Sample image"
-            />
-          </div>
-          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                  <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
-        <p class="custom-success-message mensaje" th:text="${success}">
-          
-          
-        </p>
-</div>
-
-<div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError rounded-3 p-2">
-  <div class="card-body">
-      <p class="card-text fs-6 mb-0 custom-error-message" th:text="${error}"></p>
-  </div>
-</div>
-
-
-            <form
-              th:action="@{/loginCheck}"
-              method="POST"
-              class="form"
-              id="formLogin"
-            >
-                
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input
-                  type="email"
-                  id="email"
-                  class="form-control form-control-lg"
-                  placeholder="Email"
-                  name="email"
-                />
-                <label class="form-label" for="email">Email</label>
-              </div>
-
-              <!-- Password input -->
-              <div class="form-outline mb-3">
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control form-control-lg"
-                  placeholder="Contraseña"
-                  name="password"
-                />
-                <label class="form-label" for="password">Contraseña</label>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center">
-                <!-- Checkbox -->
-                <div class="form-check mb-0">
-                  <input
-                    class="form-check-input me-2"
-                    type="checkbox"
-                    value=""
-                    id="form2Example3"
-                  />
-                  <label class="form-check-label" for="form2Example3">
-                    Recordarme
-                  </label>
-                </div>
-                <a href="#!" class="text-body">¿No recuerda su contraseña?</a>
-              </div>
-
-              <div class="text-center text-lg-start mt-4 pt-2">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-lg btnSubmit"
-                  id="btnSubmit"
-                >
-                  Iniciar Sesión
-                </button>
-                <p class="small fw-bold mt-2 pt-1 mb-0">
-                  ¿No tenés cuenta?
-                  <a href="/register" class="link-danger">Crear Usuario</a>
-                </p>
-              </div>
-            </form>
-          </div>
+        <div>
+            <header th:replace="/fragments/header :: header" </header>
         </div>
-      </div>
-    </main>
+
+        <main>
+            <div class="container-fluid containerForm">
+                <div class="row rowForm">
+                    <div class="col-md-9 col-lg-6 col-xl-5">
+                        <img
+                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                            class="img-fluid"
+                            alt="Sample image"
+                            />
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <div class="alert alert-success mensajeExito" role="alert"  th:if="${success != null}" >
+                            <p class="custom-success-message mensaje" th:text="${success}">
 
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+                            </p>
+                        </div>
+
+                        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError rounded-3 p-2">
+                            <div class="card-body">
+                                <p class="card-text fs-6 mb-0 custom-error-message" th:text="${error}"></p>
+                            </div>
+                        </div>
+
+
+                        <form
+                            th:action="@{/loginCheck}"
+                            method="POST"
+                            class="form"
+                            id="formLogin"
+                            >
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    class="form-control form-control-lg"
+                                    placeholder="Email"
+                                    name="email"
+                                    />
+                                <label class="form-label" for="email">Email</label>
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-3">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control form-control-lg"
+                                    placeholder="Contraseña"
+                                    name="password"
+                                    />
+                                <label class="form-label" for="password">Contraseña</label>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Checkbox -->
+                                <div class="form-check mb-0">
+                                    <input
+                                        class="form-check-input me-2"
+                                        type="checkbox"
+                                        value=""
+                                        id="form2Example3"
+                                        />
+                                    <label class="form-check-label" for="form2Example3">
+                                        Recordarme
+                                    </label>
+                                </div>
+                                <a href="#!" class="text-body">¿No recuerda su contraseña?</a>
+                            </div>
+
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary btn-lg btnSubmit"
+                                    id="btnSubmit"
+                                    >
+                                    Iniciar Sesión
+                                </button>
+                                <p class="small fw-bold mt-2 pt-1 mb-0">
+                                    ¿No tenés cuenta?
+                                    <a href="/register" class="link-danger">Crear Usuario</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>

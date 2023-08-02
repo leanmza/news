@@ -7,6 +7,7 @@ import com.lean.news.exception.MyException;
 import com.lean.news.repository.ReaderRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,6 +60,38 @@ public class ReaderService implements UserDetailsService {
 
     }
 
+    public void actualizeReader(String id, String name, String lastName,
+            String password, String password2, MultipartFile imageFile) throws MyException {
+
+        long fileSize = imageFile.getSize();
+
+        validateActualize(name, lastName, password, password2, fileSize);
+
+        Optional<Reader> optionalReader = readerRepository.findById(id);
+
+        if (optionalReader.isPresent()) {
+            Reader reader = optionalReader.get();
+
+            reader.setName(name);
+            reader.setLastName(lastName);
+         
+            reader.setPassword(new BCryptPasswordEncoder().encode(password));
+            reader.setRol(Rol.READER);
+
+            if (!(imageFile.isEmpty())) { ///Comprueba si el imageFile no está vacio 
+
+                String idImage = reader.getProfileImage().getId(); // idImage toma el valor del id de la imagen existente
+
+                ProfileImage profileImage = profileImageService.actualizeImage(idImage, imageFile);
+
+                reader.setProfileImage(profileImage);
+            }
+
+            readerRepository.save(reader);
+            
+        }
+    }
+
     private void validate(String name, String lastName, String email, String password, String password2, Long fileSize) throws MyException {
         if (emailChecker(email) == true) {
             throw new MyException("El email " + email + " ya se encuentra registrado");
@@ -99,6 +132,46 @@ public class ReaderService implements UserDetailsService {
         }
 
     }
+    
+    
+     private void validateActualize(String name, String lastName,  String password, String password2, Long fileSize) throws MyException {
+  
+        if (name == null || name.isEmpty()) {
+            throw new MyException("El nombre no puede ser nulo o estar vacío");
+        }
+        if (lastName == null || lastName.isEmpty()) {
+            throw new MyException("El apellido no puede ser nulo o estar vacío");
+        }
+  
+        if (password == null || password.isEmpty()) {
+            throw new MyException("La contraseña no pude ser nula o estar vacía");
+        }
+        if (password.length() < 8) {
+            throw new MyException("La contraseña debe tener al menos 8 caracteres");
+        }
+        if (passwordHasNumber(password) == false) {
+            throw new MyException("La contraseña debe tener al menos 1 número");
+        }
+        if (passwordHasUpperCase(password) == false) {
+            throw new MyException("La contraseña debe tener al menos una mayúscula");
+        }
+        if (passwordHasLowerCase(password) == false) {
+            throw new MyException("La contraseña debe tener al menos una minúscula");
+        }
+
+        if (password2 == null || password2.isEmpty()) {
+            throw new MyException("La contraseña no pude ser nula o estar vacía");
+        }
+        if (!(password.equals(password2))) {
+            throw new MyException("Las contraseñas no coinciden");
+        }
+        if (fileSize > 2097152) {
+            throw new MyException("El tamaño de la imagen supera el máximo de 2mb");
+        }
+
+    }
+    
+    
 
     private boolean emailChecker(String email) { // Verifica si el email ya existe en la BD
         boolean check = false;

@@ -3,6 +3,7 @@
     <div class="divLogo col-1"
     >
       <a
+      
         href="/"
         class=""
       >
@@ -12,27 +13,35 @@
       </div>
 
       <div class="divMenu col-7">
-      <ul
-        class="nav"  
-      >
-        <li><a th:href="@{/category/__${'mendoza'}__}" class="nav-link link">MENDOZA</a></li>
-        <li><a th:href="@{/category/__${'pais'}__}" class="nav-link link">PAÍS</a></li>
-        <li><a th:href="@{/category/__${'deportes'}__}" class="nav-link link">DEPORTES</a></li>
-        <li><a th:href="@{/category/__${'policiales'}__}" class="nav-link link">POLICIALES</a></li>
-        <li><a th:href="@{/category/__${'libros'}__}" class="nav-link link">LIBROS</a></li>
-       
-        <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
-        <a href="/news/createNews"
+        <div class="row rowCategorías">
+
+          <ul
+          class="nav"  
+        >
+          <li><a th:href="@{/category/__${'mendoza'}__}" class="nav-link link">MENDOZA</a></li>
+          <li><a th:href="@{/category/__${'pais'}__}" class="nav-link link">PAÍS</a></li>
+          <li><a th:href="@{/category/__${'deportes'}__}" class="nav-link link">DEPORTES</a></li>
+          <li><a th:href="@{/category/__${'policiales'}__}" class="nav-link link">POLICIALES</a></li>
+          <li><a th:href="@{/category/__${'libros'}__}" class="nav-link link">LIBROS</a></li>
+
+        </ul>
+        </div>
+
+        <div class="row rowDashboard">
+      
+          <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+          <a href="/news/createNews"
           ><button
             type="button"
-            class="btn btn-outline-light button"
+            class="btn btn-outline-light button btnDashboard"
             sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
           >
             Cargar Noticia
           </button></a
         >
         <!-- ---------------------------------------------- -->
-      </ul>
+
+</div>
     </div>
     <div class="divSearch col-2">
       <form role="search"        
@@ -63,7 +72,7 @@
             </button></a
           >
 
-          <a href="/register">
+          <a href="/reader/register">
             <button type="button" class="btn btn-warning">Sign-up</button></a
           >
         </div>
@@ -86,26 +95,28 @@
             <!-- -------------------------- -->
         
           </a>
-          <ul class="dropdown-menu text-small">
+          
+          <ul class=" dropdown-menu text-small">
              <!-- Si el esta logueado Reader -->
-              <li th:if="${session.readerSession == readerSession}">
-                  <!-- <a th:href="@{/reader/profile}" id="btn-contacto" class="linkDesplegable  divHeaderPerfil" >Perfil</a> -->
+              <li sec:authorize ="hasRole ('READER')">
+                  <a th:href="@{/reader/profile}" id="btn-contacto" class=" link dropdown-items"  >Perfil</a>
               </li>
               <!-- -------------------------- -->
                  <!-- Si el esta logueado Writer-->
-              <li  th:id="${session.writerSession == writerSession}">
-                  <!-- <a th:href="@{/profesional/profile}" id="btn-contacto" class="linkDesplegable  divHeaderPerfil">Perfil</a> -->
+              <li  sec:authorize ="hasRole ('WRITER')">
+                  <a th:href="@{/writer/profile}" id="btn-contacto" class="link dropdown-items">Perfil</a>
               </li>
                <!-- -------------------------- -->
         
               <li><hr class="dropdown-divider"></li>
         
-              <li><a href="/logout" class="linkDesplegable">Cerrar Sesión</a></li>
+              <li><a href="/logout" class="dropdown-items link">Cerrar Sesión</a></li>
           </ul>
         </div>
         <!-- ------------------------------ -->
       </div>
     </div>
+   
   </div>
 </header>
 
