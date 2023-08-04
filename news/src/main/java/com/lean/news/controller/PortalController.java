@@ -2,10 +2,7 @@ package com.lean.news.controller;
 
 import com.lean.news.entity.News;
 import com.lean.news.entity.Reader;
-import com.lean.news.exception.MyException;
 import com.lean.news.service.NewsService;
-import com.lean.news.service.ReaderService;
-import com.lean.news.service.WriterService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 
 
 /**
@@ -37,7 +33,9 @@ public class PortalController {
     @Transactional
     @GetMapping("/")
     public String index(Model model) {
+        News latestNews = newsService.latestNews();
         List<News>newsList = newsService.newsList();
+        model.addAttribute("latestNews", latestNews);
         model.addAttribute("news", newsList);
         return "index.html";
     }
@@ -65,8 +63,9 @@ public class PortalController {
     @GetMapping("/home")
     public String home(HttpSession session, ModelMap model) {
         
-        List<News> newsList = newsService.newsList();
-        
+        News latestNews = newsService.latestNews();
+        List<News>newsList = newsService.newsList();
+        model.addAttribute("latestNews", latestNews);
         model.addAttribute("news", newsList);
         
         if (( (session.getAttribute("readerSession") != null))  || (session.getAttribute("writerSession") != null)) { //REVISAR ACA, FALTA MANEJAR WRITER

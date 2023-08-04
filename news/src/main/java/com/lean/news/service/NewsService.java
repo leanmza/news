@@ -141,11 +141,20 @@ public class NewsService {
             newsRepository.delete(news);
         }
     }
+    
+    @Transactional(readOnly=true)
+    public News latestNews(){
+        List<News> newsList = new ArrayList();
+        newsList = newsRepository.listOrderedNews();
+        News lastestNews = newsList.get(0); //Toma la primer noticia del array 
+        return lastestNews;
+    }
 
     @Transactional(readOnly = true)
     public List<News> newsList() { //Muestra la noticia más nueva primero
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
+        newsList.remove(0);
         return newsList;
     }
 

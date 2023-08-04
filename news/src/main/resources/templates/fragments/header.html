@@ -1,36 +1,47 @@
-<header class="">
+<header>
   <div class="divHeader row">
-    <div class="divLogo col-1"
-    >
-      <a
-      
-        href="/"
-        class=""
-      >
-      <img src="../../LOGO_news.png" alt="logo" class="logoHeader">
-
+    <!-- COLUMNA LOGO -->
+    <div class="divLogo col-1">
+      <a href="/" class="">
+        <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
       </a>
+    </div>
+
+    <!-- COLUMNA MENÚ CATEGORÍAS -->
+    <div class="divMenu col-7">
+      <div class="row rowCategorías">
+        <ul class="nav">
+          <li>
+            <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+              >MENDOZA</a
+            >
+          </li>
+          <li>
+            <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+              >PAÍS</a
+            >
+          </li>
+          <li>
+            <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+              >DEPORTES</a
+            >
+          </li>
+          <li>
+            <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
+              >POLICIALES</a
+            >
+          </li>
+          <li>
+            <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+              >LIBROS</a
+            >
+          </li>
+        </ul>
       </div>
 
-      <div class="divMenu col-7">
-        <div class="row rowCategorías">
-
-          <ul
-          class="nav"  
-        >
-          <li><a th:href="@{/category/__${'mendoza'}__}" class="nav-link link">MENDOZA</a></li>
-          <li><a th:href="@{/category/__${'pais'}__}" class="nav-link link">PAÍS</a></li>
-          <li><a th:href="@{/category/__${'deportes'}__}" class="nav-link link">DEPORTES</a></li>
-          <li><a th:href="@{/category/__${'policiales'}__}" class="nav-link link">POLICIALES</a></li>
-          <li><a th:href="@{/category/__${'libros'}__}" class="nav-link link">LIBROS</a></li>
-
-        </ul>
-        </div>
-
-        <div class="row rowDashboard">
-      
-          <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
-          <a href="/news/createNews"
+      <div class="row rowDashboard">
+        <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+        <a href="/news/createNews"
           ><button
             type="button"
             class="btn btn-outline-light button btnDashboard"
@@ -40,98 +51,125 @@
           </button></a
         >
         <!-- ---------------------------------------------- -->
-
-</div>
-    </div>
-    
-    <div class="divSearch col-2">
-      <form role="search"        
-      th:action="@{/search}"
-      method="GET"
-      class="form"
-      id="formLogin">
-
-      <input 
-      th:name="word" 
-      id="word"
-      type="search" 
-      class="form-control searchBar" 
-      placeholder="Buscar" aria-label="Search">
-      
-        </form>
-    </div>
-
-      <div class="divLogin col-2">
-
-        <!-- ESTE DIV SE MUESTRA SI NO HAY USUARIO LOGUEADO -->
-        <div class="dropdown text-end"  th:if="${session.readerSession == null AND session.writerSession == null}">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle nav-link link" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-regular fa-user"></i> Iniciar Sesión 
-          </a>
-          
-          <ul class=" dropdown-menu text-small">
-             <!-- Si el esta logueado Reader -->
-             <a href="/login" class="nav-link link linkLog">
-              <i class="fa-solid fa-right-to-bracket iconLog"></i> Ingresar</a
-            >
-                
-              <li><hr class="dropdown-divider"></li>
-        
-              <li> <a href="/reader/register" class="nav-link link linkLog">
-                <i class="fa-regular fa-address-card iconLog"></i> Registrarse</a
-              ></li>
-          </ul>
-        </div>
-
-        <div
-          class="divGuest"
-          th:if="${session.readerSession == null AND session.writerSession == null}"
-        >
-    
-
-     
-        </div>
-        <!-- ------------------------------ -->
-
-        <!-- ESTE DIV SE MUESTRA SI HAY USUARIO LOGUEADO -->
-        <div class="dropdown text-end" th:if="${session.readerSession != null OR session.writerSession != null}">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        
-            <!-- Si el esta logueado Reader -->
-            <img class="profilePicture" 
-            th:if="${session.readerSession != null}" 
-                 th:src="@{/image/user/__${session.readerSession.id}__}">
-            <!-- -------------------------- -->
-                
-            <!-- Si el esta logueado Writer-->
-              <img class="imagen-perfil" 
-                   th:if="${session.writerSession != writerSession}"
-                   th:src="@{image/user/__${session.writerSession.id}__}" >
-            <!-- -------------------------- -->
-        
-          </a>
-          
-          <ul class=" dropdown-menu text-small">
-             <!-- Si el esta logueado Reader -->
-              <li sec:authorize ="hasRole ('READER')">
-                  <a th:href="@{/reader/profile}" id="btn-contacto" class=" link dropdown-items"  >Perfil</a>
-              </li>
-              <!-- -------------------------- -->
-                 <!-- Si el esta logueado Writer-->
-              <li  sec:authorize ="hasRole ('WRITER')">
-                  <a th:href="@{/writer/profile}" id="btn-contacto" class="link dropdown-items">Perfil</a>
-              </li>
-               <!-- -------------------------- -->
-        
-              <li><hr class="dropdown-divider"></li>
-        
-              <li><a href="/logout" class="dropdown-items link">Cerrar Sesión</a></li>
-          </ul>
-        </div>
-        <!-- ------------------------------ -->
       </div>
     </div>
-   
+
+    <!-- COLUMNA BARRA DE BÚSQUEDA -->
+    <div class="divSearch col-2">
+      <form
+        role="search"
+        th:action="@{/search}"
+        method="GET"
+        class="form searchForm"
+        id="formLogin"
+      >
+        <input
+          th:name="word"
+          id="word"
+          type="search"
+          class="form-control searchBar"
+          placeholder="Buscar"
+          aria-label="Search"
+        />
+      </form>
+    </div>
+
+    <!-- COLUMNA LOGIN -->
+    <div class="divLogin col-2">
+      <!-- ESTE DIV SE MUESTRA SI NO HAY USUARIO LOGUEADO -->
+      <div
+        class="dropdown text-end"
+        th:if="${session.readerSession == null AND session.writerSession == null}"
+      >
+        <a
+          href="#"
+          class="d-block link-dark text-decoration-none dropdown-toggle nav-link link"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-regular fa-user"></i> Iniciar Sesión
+        </a>
+
+        <ul class="dropdown-menu text-small">
+          <!-- Si el esta logueado Reader -->
+          <a href="/login" class="nav-link link linkLog">
+            <i class="fa-solid fa-right-to-bracket iconLog"></i> Ingresar</a
+          >
+
+          <li><hr class="dropdown-divider" /></li>
+
+          <li>
+            <a href="/reader/register" class="nav-link link linkLog">
+              <i class="fa-regular fa-address-card iconLog"></i> Registrarse</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="divGuest"
+        th:if="${session.readerSession == null AND session.writerSession == null}"
+      ></div>
+      <!-- ------------------------------ -->
+
+      <!-- ESTE DIV SE MUESTRA SI HAY USUARIO LOGUEADO -->
+      <div
+        class="dropdown text-end"
+        th:if="${session.readerSession != null OR session.writerSession != null}"
+      >
+        <a
+          href="#"
+          class="d-block link-dark text-decoration-none dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <!-- Si el esta logueado Reader -->
+          <img
+            class="profilePicture"
+            th:if="${session.readerSession != null}"
+            th:src="@{/image/user/__${session.readerSession.id}__}"
+          />
+          <!-- -------------------------- -->
+
+          <!-- Si el esta logueado Writer-->
+          <img
+            class="imagen-perfil"
+            th:if="${session.writerSession != writerSession}"
+            th:src="@{image/user/__${session.writerSession.id}__}"
+          />
+          <!-- -------------------------- -->
+        </a>
+
+        <ul class="dropdown-menu text-small">
+          <!-- Si el esta logueado Reader -->
+          <li sec:authorize="hasRole ('READER')">
+            <a
+              th:href="@{/reader/profile}"
+              id="btn-contacto"
+              class="link dropdown-items"
+              >Perfil</a
+            >
+          </li>
+          <!-- -------------------------- -->
+          <!-- Si el esta logueado Writer-->
+          <li sec:authorize="hasRole ('WRITER')">
+            <a
+              th:href="@{/writer/profile}"
+              id="btn-contacto"
+              class="link dropdown-items"
+              >Perfil</a
+            >
+          </li>
+          <!-- -------------------------- -->
+
+          <li><hr class="dropdown-divider" /></li>
+
+          <li>
+            <a href="/logout" class="dropdown-items link">Cerrar Sesión</a>
+          </li>
+        </ul>
+      </div>
+      <!-- ------------------------------ -->
+    </div>
   </div>
 </header>
-

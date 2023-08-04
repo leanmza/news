@@ -5,9 +5,22 @@
 
         <header th:replace="/fragments/header :: header"> </header>
 
-
         <main>
             <div class="container-fluid divMain">
+
+                <div class="row rowLastestNews">
+                    <div class="superCard card">
+                        
+                        <img th:if="${latestNews.image != null}" th:src="@{/image/news/__${latestNews.id}__}" class="card-img-top cardImg" alt="...">
+
+                        <div class="card-img-overlay">
+                            <a th:href="@{/category/__${latestNews.category}__}" class="link"><h6 class="card-category" th:text="${latestNews.category}"></h6></a>
+                            <a th:href="@{/news/__${latestNews.id}__}" class="link"><h2 class="card-title" th:text="${latestNews.title}"></h2></a>
+
+                        </div>
+                    </div>
+
+                </div>
                 <div class="row row-cols-1 ">
                     <div class="col-xs-12 col-sm-4 col-lg-3 colCard" th:each="news : ${news}">
 
@@ -15,25 +28,21 @@
 
                             <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top cardImg" alt="...">
 
-
                             <div class="card-img-overlay">
                                 <a th:href="@{/category/__${news.category}__}" class="link"><h6 class="card-category" th:text="${news.category}"></h6></a>
-                                <a th:href="@{/news/__${news.id}__}" class="link"><h2 class="card-title" th:text="${news.title}">Card title</h2></a>
+                                <a th:href="@{/news/__${news.id}__}" class="link"><h2 class="card-title" th:text="${news.title}"></h2></a>
 
                             </div>
                         </div>
 
                     </div>
 
-
                 </div>
             </div>
 
-
         </main>
 
-        <!--<footer th:replace="/fragments/footer :: footer"> </footer>-->
-
+        <footer th:replace="/fragments/footer :: footer"> </footer>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
