@@ -94,9 +94,14 @@ public class NewsService {
             }
 
             news.setCategory(Category.valueOf(category));
-
-            if (subscriberContent = true) {
-
+            
+            System.out.println("subs " + subscriberContent);
+            
+            if (subscriberContent == false) {
+  
+                news.setSubscriberContent(false);
+            } else if  (subscriberContent == true) {
+            
                 news.setSubscriberContent(true);
             }
 

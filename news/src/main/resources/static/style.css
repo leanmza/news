@@ -134,6 +134,9 @@ footer ul {
   margin-top: 32px;
 }
 
+.cardMessage{
+  aspect-ratio: auto !important;
+}
 .rowLastestNews {
   display: flex;
   justify-content: center;

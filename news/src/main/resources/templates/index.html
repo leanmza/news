@@ -31,6 +31,7 @@
 
                             <div class="card-img-overlay">
                                 <a th:href="@{/category/__${news.category}__}" class="link"><h6 class="card-category" th:text="${news.category}"></h6></a>
+                                <h6 th:if="${news.subscriberContent == true} ">Exclusivo suscriptores <i class="fa-solid fa-star exclusiveIcon"></i></h6>
                                 <a th:href="@{/news/__${news.id}__}" class="link"><h2 class="card-title" th:text="${news.title}"></h2></a>
 
                             </div>

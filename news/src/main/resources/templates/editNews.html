@@ -59,10 +59,10 @@
 
                                 <label class="form-label" for="body">Cuerpo de la noticia</label>
                             </div>
-                            <div class="row">
+                            <div class="row rowDataForm">
 
                                 <!-- Category input -->
-                                <div class="form-outline mb-2 col-4">
+                                <div class="form-outline mb-2 col-3">
                                     <select
                                         id="category"
                                         class="form-control form-control-lg"
@@ -78,10 +78,22 @@
                                     </select>
                                     <label class="form-label" for="title">Categoría</label>
 
-                                </div>              
+                                </div>          
+                                                  <!-- Suscriber input-->
+                                                  <div class="form-outline mb-2 col-3  divCheckbox">
+                                                    <label class="form-check-label" for="subscriberContent">¿Exclusivo suscritores?</label>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="subscriberContent"
+                                                        class="form-check-input"    
+                                                        th:name="subscriberContent"
+                                                        autocomplete="off"
+                                                        />
+                                                      
+                                                </div>    
 
                                 <!-- Image input -->
-                                <div class="form-outline mb-2 col-5 offset-1">
+                                <div class="form-outline mb-2 col-5 ">
                                     <input
                                         type="file"
                                         id="image"

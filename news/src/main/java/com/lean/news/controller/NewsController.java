@@ -76,13 +76,13 @@ public class NewsController {
     @Transactional
     @PostMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, @RequestParam String title,
-            @RequestParam String category, @RequestParam boolean subscriberContent, @RequestParam String body,
+            @RequestParam String category, @RequestParam(required = false) boolean subscriberContent, @RequestParam String body,
             @RequestParam(required = false) MultipartFile imageFile,  ModelMap model, Principal principal) throws MyException{
      
         try {
          
             String writerEmail = principal.getName();
-
+            System.out.println("subs controler " + subscriberContent);
             newsService.actualizeNews(id, title, body, imageFile, writerEmail, category, subscriberContent);
             
             return "redirect:/";
