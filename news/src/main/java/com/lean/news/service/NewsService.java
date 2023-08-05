@@ -37,7 +37,7 @@ public class NewsService {
     private ImageService imageService;
 
     @Transactional
-    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail, String category)
+    public void createNews(String title, String body, MultipartFile imageFile, String writerEmail, String category, boolean subscriberContent)
             throws MyException {
 
         validate(title, body, writerEmail, category);
@@ -60,11 +60,16 @@ public class NewsService {
 
         news.setCategory(Category.valueOf(category));
 
+        if (subscriberContent = true) {
+
+            news.setSubscriberContent(true);
+        }
+
         newsRepository.save(news);
     }
 
     @Transactional
-    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writerEmail, String category)
+    public void actualizeNews(String id, String title, String body, MultipartFile imageFile, String writerEmail, String category, boolean subscriberContent)
             throws MyException {
 
         validate(title, body, writerEmail, category);
@@ -72,13 +77,13 @@ public class NewsService {
         Optional<News> optionalNews = newsRepository.findById(id);
 
         if (optionalNews.isPresent()) {
-            
+
             News news = optionalNews.get();
 
             news.setTitle(title);
             news.setBody(body);
 
-            if (! (imageFile.isEmpty() ) ) { ///Comprueba si el imageFile no está vacio 
+            if (!(imageFile.isEmpty())) { ///Comprueba si el imageFile no está vacio 
 
                 String idImage = news.getImage().getId(); // idImage toma el valor del id de la imagen existente
 
@@ -87,9 +92,13 @@ public class NewsService {
                 news.setImage(image); //Establece la imagen nueva
 
             }
-            
 
             news.setCategory(Category.valueOf(category));
+
+            if (subscriberContent = true) {
+
+                news.setSubscriberContent(true);
+            }
 
             newsRepository.save(news);
         }
@@ -111,6 +120,7 @@ public class NewsService {
         if (checkCategory(category) == false) {
             throw new MyException("La categoría ingresada no es válida");
         }
+
     }
 
     private boolean checkCategory(String category) {
@@ -141,9 +151,9 @@ public class NewsService {
             newsRepository.delete(news);
         }
     }
-    
-    @Transactional(readOnly=true)
-    public News latestNews(){
+
+    @Transactional(readOnly = true)
+    public News latestNews() {
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
         News lastestNews = newsList.get(0); //Toma la primer noticia del array 
@@ -181,11 +191,11 @@ public class NewsService {
 
         return newsList;
     }
-    
-        @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public List<News> findNewsByWriter(String id) { //Muestra las noticias con la palabra buscada
         Writer writer = writerRepository.findById(id).get();
-        
+
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listNewsByWriter(writer);
         return newsList;

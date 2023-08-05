@@ -41,7 +41,7 @@ public class PortalController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap model, 
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String errorSubscriber,  ModelMap model, 
             @RequestParam(required = false) String success) throws UsernameNotFoundException {
 
         if ("registerSuccess".equals(success)) {
@@ -52,6 +52,10 @@ public class PortalController {
         if (error != null) {
 
             model.put("error", "Usuario y/o Contraseña incorrecto, intente nuevamente");
+        }
+        
+        if (errorSubscriber != null){
+            model.put("error", "Contenido exclusivo para suscriptores");
         }
 
         return "login.html";
@@ -90,7 +94,7 @@ public class PortalController {
         
         model.addAttribute("news", newsList);
                 
-        return "index.html";
+        return "category.html";
     }
     
         @Transactional
@@ -101,7 +105,7 @@ public class PortalController {
         
         model.addAttribute("news", newsList);
         
-        return "index.html";
+        return "category.html";
     }
     
         @Transactional
@@ -112,7 +116,7 @@ public class PortalController {
         
         model.addAttribute("news", newsList);
                 
-        return "index.html";
+        return "category.html";
     }
     
 }

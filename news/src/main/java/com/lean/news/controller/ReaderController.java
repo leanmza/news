@@ -41,7 +41,7 @@ public class ReaderController {
     public String registerReader(@RequestParam String name, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password,
             @RequestParam String password2, @RequestParam(required = false) MultipartFile imageFile,
-            ModelMap modelo) throws MyException {
+            ModelMap model) throws MyException {
 
         try {
 
@@ -51,13 +51,13 @@ public class ReaderController {
 
         } catch (MyException me) {
             System.out.println("¡Registro de paciente FALLIDO!\n" + me.getMessage());
-            modelo.put("error", me.getMessage());
+            model.put("error", me.getMessage());
         }
 
-        modelo.put("name", name);
-        modelo.put("lastName", lastName);
-        modelo.put("email", email);
-        modelo.put("password", password);
+        model.put("name", name);
+        model.put("lastName", lastName);
+        model.put("email", email);
+        model.put("password", password);
 
         return "register_reader.html";
 

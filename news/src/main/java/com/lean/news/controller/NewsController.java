@@ -8,8 +8,11 @@ import com.lean.news.entity.News;
 import com.lean.news.exception.MyException;
 import com.lean.news.service.NewsService;
 import java.security.Principal;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -40,14 +43,14 @@ public class NewsController {
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @PostMapping("/postNews")
     public String postNews(@RequestParam String title, @RequestParam String body,
-            @RequestParam String category, MultipartFile imageFile, Principal principal)
+            @RequestParam String category, @RequestParam boolean subscriberContent, MultipartFile imageFile, Principal principal)
             throws MyException {
 
         try {
 
             String writerEmail = principal.getName();
 
-            newsService.createNews(title, body, imageFile, writerEmail, category);
+            newsService.createNews(title, body, imageFile, writerEmail, category, subscriberContent);
 
             return "redirect:/";
 
@@ -73,14 +76,14 @@ public class NewsController {
     @Transactional
     @PostMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, @RequestParam String title,
-            @RequestParam String category, @RequestParam String body,
+            @RequestParam String category, @RequestParam boolean subscriberContent, @RequestParam String body,
             @RequestParam(required = false) MultipartFile imageFile,  ModelMap model, Principal principal) throws MyException{
      
         try {
          
             String writerEmail = principal.getName();
 
-            newsService.actualizeNews(id, title, body, imageFile, writerEmail, category);
+            newsService.actualizeNews(id, title, body, imageFile, writerEmail, category, subscriberContent);
             
             return "redirect:/";
             
@@ -94,12 +97,47 @@ public class NewsController {
     }
 
     @GetMapping("/{id}")
-    public String showNews(@PathVariable String id, Model model) {
+    public String showNews(@PathVariable String id, Model model,  Principal principal) {
+//Primero validar si es subscriberContent
+//Segundo validar si esta logueado
 
-        News news = newsService.getOne(id);
-        model.addAttribute("news", news);
-        return "news.html";
+        News news = newsService.getOne(id); // traigo la noticia
+        
+        if (news.isSubscriberContent()){ // si subscriberContent es TRUE
+            
+                   
+             
+              if ( principal != null ) { //Verifica si hay usuario logueado
+                
+                  model.addAttribute("news", news);
+                
+                  return "news.html";
+                
+                //PONER UN TRY CATCH PARA MANEJAR EL ERROR
+            } else {
+                  
+                model.addAttribute("errorSubscriber", "Contenido exclusivo para suscriptores");
+                
+                return "redirect:/login?errorSubscriber";
+            }
+              
+        } else {
+            
+            
+            
+            model.addAttribute("news", news);
+          
+            return "news.html";
+        }
+  
     }
+    
+//    @GetMapping("/{id}")
+//    public String showNews(@PathVariable String id, Model model) {
+//        News news = newsService.getOne(id);
+//        model.addAttribute("news", news);
+//        return "news.html";
+//    }
 
     @Transactional
     @GetMapping("/deleteNews/{id}")

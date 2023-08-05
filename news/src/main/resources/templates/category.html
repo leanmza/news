@@ -8,21 +8,7 @@
         <main>
             <div class="container-fluid divMain">
 
-                <div class="row rowLastestNews">
-                    <div class="superCard card">
-                        
-                        <img th:if="${latestNews.image != null}" th:src="@{/image/news/__${latestNews.id}__}" class="card-img-top cardImg" alt="...">
-
-                        <div class="card-img-overlay">
-                            <a th:href="@{/category/__${latestNews.category}__}" class="link"><h6 class="card-category" th:text="${latestNews.category}"></h6></a>
-                            <h6 th:if="${latestNews.subscriberContent == true} ">Exclusivo suscriptores <i class="fa-solid fa-star exclusiveIcon"></i></h6>
-                            <a th:href="@{/news/__${latestNews.id}__}" class="link"><h2 class="card-title" th:text="${latestNews.title}"></h2></a>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row row-cols-1 ">
+                  <div class="row row-cols-1 ">
                     <div class="col-xs-12 col-sm-4 col-lg-3 colCard" th:each="news : ${news}">
 
                         <div class="card h-100">
