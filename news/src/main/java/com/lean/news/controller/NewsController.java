@@ -65,9 +65,9 @@ public class NewsController {
     @Transactional
     @GetMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, ModelMap model) {
- 
+
         News news = newsService.getOne(id);
-       
+
         model.addAttribute("news", news);
         return "editNews.html";
     }
@@ -77,67 +77,53 @@ public class NewsController {
     @PostMapping("/editNews/{id}")
     public String editNews(@PathVariable String id, @RequestParam String title,
             @RequestParam String category, @RequestParam(required = false) boolean subscriberContent, @RequestParam String body,
-            @RequestParam(required = false) MultipartFile imageFile,  ModelMap model, Principal principal) throws MyException{
-     
+            @RequestParam(required = false) MultipartFile imageFile, ModelMap model, Principal principal) throws MyException {
+
         try {
-         
+
             String writerEmail = principal.getName();
             System.out.println("subs controler " + subscriberContent);
             newsService.actualizeNews(id, title, body, imageFile, writerEmail, category, subscriberContent);
-            
+
             return "redirect:/";
-            
+
         } catch (Exception e) {
-            
+
             System.out.println("Error al actualizar la noticia");
-            
+
             return "createNews.html";
         }
 
     }
 
     @GetMapping("/{id}")
-    public String showNews(@PathVariable String id, Model model,  Principal principal) {
-//Primero validar si es subscriberContent
-//Segundo validar si esta logueado
+    public String showNews(@PathVariable String id, Model model, Principal principal) {
 
         News news = newsService.getOne(id); // traigo la noticia
-        
-        if (news.isSubscriberContent()){ // si subscriberContent es TRUE
-            
-                   
-             
-              if ( principal != null ) { //Verifica si hay usuario logueado
-                
-                  model.addAttribute("news", news);
-                
-                  return "news.html";
-                
-                //PONER UN TRY CATCH PARA MANEJAR EL ERROR
+
+        if (news.isSubscriberContent()) { // si subscriberContent es TRUE
+
+            if (principal != null) { //Verifica si hay usuario logueado
+
+                model.addAttribute("news", news);
+
+                return "news.html";
+
             } else {
-                  
+
                 model.addAttribute("errorSubscriber", "Contenido exclusivo para suscriptores");
-                
+
                 return "redirect:/login?errorSubscriber";
             }
-              
+
         } else {
-            
-            
-            
+
             model.addAttribute("news", news);
-          
+
             return "news.html";
         }
-  
+
     }
-    
-//    @GetMapping("/{id}")
-//    public String showNews(@PathVariable String id, Model model) {
-//        News news = newsService.getOne(id);
-//        model.addAttribute("news", news);
-//        return "news.html";
-//    }
 
     @Transactional
     @GetMapping("/deleteNews/{id}")
@@ -146,4 +132,6 @@ public class NewsController {
         newsService.deleteNews(id);
         return "redirect:/home";
     }
+    
+    
 }

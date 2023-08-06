@@ -1,56 +1,59 @@
 <footer>
   <div class="divFooter row">
-
     <!-- COLUMNA MENÚ CATEGORÍAS -->
-    <div class="divMenu col-2">
+    <div class="divMenu col-3">
       <div class="row rowCategorías">
-        <div> </div>
-        <ul class="">
-          <li>
-            <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
-              >MENDOZA</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
-              >PAÍS</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
-              >DEPORTES</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
-              >POLICIALES</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
-              >LIBROS</a
-            >
-          </li>
-        </ul>
-      </div>
+        <div class="col-6">
+          <ul class="">
+            <li>
+              <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+                >MENDOZA</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+                >PAÍS</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+                >DEPORTES</a
+              >
+            </li>
+            <li>
+              <a
+                th:href="@{/category/__${'policiales'}__}"
+                class="nav-link link"
+                >POLICIALES</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+                >LIBROS</a
+              >
+            </li>
+          </ul>
+        </div>
 
-      <div class="row rowDashboard">
-        <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
-        <a href="/news/createNews"
-          ><button
-            type="button"
-            class="btn btn-outline-light button btnDashboard"
-            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
-          >
-            Cargar Noticia
-          </button></a
+        <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER O EDITOR -->
+        <div
+          class="col-6 rowDashboard"
+          sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
         >
-        <!-- ---------------------------------------------- -->
+          <ul class="">
+            <li>
+              <a href="/news/createNews" class="nav-link link"
+                >Cargar Noticia</a
+              >
+            </li>
+          </ul>
+          <!-- ---------------------------------------------- -->
+        </div>
       </div>
     </div>
 
     <!-- COLUMNA LOGO -->
-    <div class="divLogoFooter col-lg-1 col-sm-2 ">
+    <div class="divLogoFooter col-lg-1 col-sm-2">
       <a href="/" class="">
         <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
       </a>
@@ -58,46 +61,43 @@
 
     <!-- COLUMNA REDES -->
     <div class="divRedes col-lg-3 col-md-4 col-sm-5">
-      
-        <ul class="nav">
-          <li>
-            <a href="http://www.twitter.com" class="nav-link link linkSocial"
-               ><i class="fa-brands fa-twitter"></i></i></a
-                >
-             </li>
-          <li>
-            <a href="http://www.instagram.com" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-instagram"></i></a
-            >
-          </li>
-          <li>
-            <a href="http://www.facebook.com" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-facebook"></i></a
-            >
-          </li>
-          <li>
-            <a href="http://www.tiktok.com" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-tiktok"></i></a
-            >
-          </li>
-          <li>
-            <a href="http://www.threads.net" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-threads"></i></a
-            >
-          </li>
-          <li>
-            <a href="http://www.youtube.com" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-youtube"></i></a
-            >
-          </li>
-          <li>
-            <a href="http://www.linked.com" class="nav-link link  linkSocial"
-              ><i class="fa-brands fa-linkedin-in"></i></a
-            >
-          </li>
-     
-        </ul>
-    
+      <ul class="nav">
+        <li>
+          <a href="http://www.twitter.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.instagram.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.facebook.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-facebook"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.tiktok.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-tiktok"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.threads.net" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-threads"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.youtube.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-youtube"></i
+          ></a>
+        </li>
+        <li>
+          <a href="http://www.linked.com" class="nav-link link linkSocial"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>

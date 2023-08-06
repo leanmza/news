@@ -47,6 +47,6 @@ public class News {
     @Enumerated(EnumType.STRING)
     private Category category;
     
-    private boolean subscriberContent = false;
+    private boolean subscriberContent;
 
 }

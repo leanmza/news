@@ -108,6 +108,7 @@ footer {
 }
 
 .divLogoFooter {
+  display: flex;
   justify-content: center;
 }
 
@@ -134,8 +135,14 @@ footer ul {
   margin-top: 32px;
 }
 
-.cardMessage{
+.cardMessage {
   aspect-ratio: auto !important;
+
+}
+
+.cardMessageError {
+  aspect-ratio: auto !important;
+  background-color: rgb(245, 68, 68) !important;
 }
 .rowLastestNews {
   display: flex;
@@ -208,7 +215,7 @@ footer ul {
   padding: 32px 32px;
 }
 
-.rowDataForm{
+.rowDataForm {
   justify-content: space-between;
 }
 .divCheckbox {
@@ -226,7 +233,7 @@ footer ul {
   padding-right: 2.5rem;
 }
 
-.exclusiveIcon{
+.exclusiveIcon {
   padding-left: 5px;
   color: yellow;
 }
@@ -260,4 +267,59 @@ footer ul {
 .bodyNews {
   width: 75ch !important;
   font-size: 20px;
+}
+
+/* BANNER LOGIN */
+.divBanner{
+  display: flex;
+  justify-content: center;
+}
+.bannerLogin {
+  font-size: 2em;
+  text-align: center;
+  font-weight: 700;
+  padding: 20px 0 20px;
+  border: solid 2px rgb(245, 68, 68);
+  min-width: 450px;
+  max-width: 500px;
+  border-radius: 3px;
+  background-color: white;
+}
+.bannerLogin > span {
+  font-weight: 900;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  color: rgb(245, 68, 68);
+  height: 1.25em;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.bannerLogin > span > span {
+  display: block;
+  animation: animateWords 5s infinite ease;
+}
+
+.img-fluid {
+  margin-top: -150px;
+  margin-bottom: -150px;
+}
+
+/* divided into as many parts as there are spans, each part decreasing the translateY by -100% */
+@keyframes animateWords {
+  0% {
+    transform: translateY(0%);
+  }
+
+  33% {
+    transform: translateY(-100%);
+  }
+
+  66% {
+    transform: translateY(-200%);
+  }
+
+  100% {
+    transform: translateY(-300%);
+  }
 }
