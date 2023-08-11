@@ -6,10 +6,12 @@ package com.lean.news.service;
 
 import com.lean.news.entity.Image;
 import com.lean.news.entity.News;
+
 import com.lean.news.entity.Writer;
 import com.lean.news.enums.Category;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.NewsRepository;
+
 import com.lean.news.repository.WriterRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class NewsService {
 
         news.setCategory(Category.valueOf(category));
 
-        if (subscriberContent = true) {
+        if (subscriberContent == true) {
 
             news.setSubscriberContent(true);
         }
@@ -94,14 +96,12 @@ public class NewsService {
             }
 
             news.setCategory(Category.valueOf(category));
-            
-            System.out.println("subs " + subscriberContent);
-            
+
             if (subscriberContent == false) {
-  
+
                 news.setSubscriberContent(false);
-            } else if  (subscriberContent == true) {
-            
+            } else if (subscriberContent == true) {
+
                 news.setSubscriberContent(true);
             }
 
@@ -161,16 +161,36 @@ public class NewsService {
     public News latestNews() {
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
-        News lastestNews = newsList.get(0); //Toma la primer noticia del array 
-        return lastestNews;
+
+
+        if (newsList.size() > 0){ //Condicional para que si no hay noticias cargadas siga andando la pag y no se rompa
+            
+            News lastestNews = newsList.get(0); //Toma la primer noticia del array 
+
+            return lastestNews;
+
+        } else {
+
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
     public List<News> newsList() { //Muestra la noticia más nueva primero
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listOrderedNews();
-        newsList.remove(0);
-        return newsList;
+
+        if (!(newsList.isEmpty())) { //Condicional para que si no hay noticias cargadas siga andando la pag y no se rompa
+
+            newsList.remove(0);
+
+            return newsList;
+
+        } else {
+
+          return newsList;
+            
+        }
     }
 
     @Transactional

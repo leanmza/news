@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.lean.news.controller;
 
+import com.lean.news.entity.CustomUser;
 import com.lean.news.entity.Reader;
 import com.lean.news.exception.MyException;
 import com.lean.news.service.ReaderService;
@@ -30,7 +27,7 @@ public class ReaderController {
     @Autowired
     private ReaderService readerService;
 
-      @GetMapping("/register")
+    @GetMapping("/register")
     public String registritionReader() {
         return "register_reader.html";
     }
@@ -62,21 +59,23 @@ public class ReaderController {
         return "register_reader.html";
 
     }
-    
-       // ------------------------ ACTUALIZACIÓN DE READER ----------------------------------
+
+    // ------------------------ ACTUALIZACIÓN DE READER ----------------------------------
     @Transactional
     @GetMapping("/profile")
     public String actualizeReader(HttpSession session, ModelMap model) {
-        
-        Reader reader = (Reader) session.getAttribute("readerSession");
-        
-           model.put("reader", reader);
+
+       CustomUser reader = (CustomUser) session.getAttribute("userSession"); ///   CustomUser ES LA CLASE PADRE
+
+        model.put("reader", reader);
+ 
+              System.out.println("session actualize " + session.getAttribute("userSession"));
         return "edit_reader.html";
     }
 
     @Transactional
     @PostMapping("/profile/{id}")
-    public String actualizeReader(@PathVariable String id, @RequestParam(required = false) String name, 
+    public String actualizeReader(@PathVariable String id, @RequestParam(required = false) String name,
             @RequestParam(required = false) String lastName, @RequestParam(required = false) String password,
             @RequestParam(required = false) String password2, @RequestParam(required = false) MultipartFile imageFile,
             ModelMap modelo) throws MyException {

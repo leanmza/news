@@ -42,12 +42,12 @@ public class NewsController {
 
     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @PostMapping("/postNews")
-    public String postNews(@RequestParam String title, @RequestParam String body,
-            @RequestParam String category, @RequestParam boolean subscriberContent, MultipartFile imageFile, Principal principal)
+    public String createNews(@RequestParam String title, @RequestParam String body,
+            @RequestParam String category, @RequestParam(required = false) boolean subscriberContent, MultipartFile imageFile, Principal principal)
             throws MyException {
 
         try {
-
+           
             String writerEmail = principal.getName();
 
             newsService.createNews(title, body, imageFile, writerEmail, category, subscriberContent);
@@ -125,6 +125,7 @@ public class NewsController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @Transactional
     @GetMapping("/deleteNews/{id}")
     public String deleteNews(@PathVariable String id) throws MyException {
@@ -132,6 +133,5 @@ public class NewsController {
         newsService.deleteNews(id);
         return "redirect:/home";
     }
-    
-    
+
 }

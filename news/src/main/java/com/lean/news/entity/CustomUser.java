@@ -4,50 +4,43 @@
  */
 package com.lean.news.entity;
 
-import com.lean.news.enums.Category;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
+import com.lean.news.enums.Rol;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 
 /**
  *
  * @author Lean
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
-public class News {
+public class CustomUser implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
+    @GeneratedValue(generator = "uuid", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
-    private String title;
-    
-    @Column(columnDefinition = "LONGTEXT")
-    private String body;
-  
-    private LocalDateTime dateLog;
-    
-    @OneToOne
-    private Image image;
-    
-    @OneToOne
-    private Writer writer;
 
-    
+    private String name;
+    private String lastName;
+    private String email;
+    private String password;
+
     @Enumerated(EnumType.STRING)
-    private Category category;
-    
-    private boolean subscriberContent = false;
+    private Rol rol;
+
+    @OneToOne
+    private ProfileImage profileImage;
 
 }

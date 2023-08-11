@@ -25,19 +25,28 @@ public class ProfileImageService {
     public ProfileImage saveImage(MultipartFile imageFile) throws MyException {
 
         if (imageFile != null) {
+
             try {
                 ProfileImage profileImage = new ProfileImage();
 
                 profileImage.setName(imageFile.getName());
+
                 profileImage.setMime(imageFile.getContentType());
+
                 profileImage.setContent(imageFile.getBytes());
+
                 return profileImageRepository.save(profileImage);
+
             } catch (IOException ex) {
+
                 System.err.println(ex.getMessage());
+
             }
 
         }
+
         return null;
+
     }
 
     public ProfileImage actualizeImage(String idImage, MultipartFile imageFile) throws MyException {
@@ -49,20 +58,28 @@ public class ProfileImageService {
                 ProfileImage profileImage = new ProfileImage();
 
                 if (idImage != null) {
+
                     Optional<ProfileImage> optionalImage = profileImageRepository.findById(idImage);
 
                     if (optionalImage.isPresent()) {
+
                         profileImage = optionalImage.get();
+
                     }
                 }
 
                 profileImage.setName(imageFile.getName());
+
                 profileImage.setMime(imageFile.getContentType());
+
                 profileImage.setContent(imageFile.getBytes());
+
                 return profileImageRepository.save(profileImage);
 
             } catch (IOException ex) {
+
                 System.err.println(ex.getMessage());
+
             }
 
         }

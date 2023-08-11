@@ -1,12 +1,17 @@
 package com.lean.news.controller;
 
+import com.lean.news.entity.CustomUser;
 import com.lean.news.entity.News;
+
 import com.lean.news.entity.Reader;
+import com.lean.news.entity.Writer;
 import com.lean.news.service.NewsService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 /**
  *
@@ -33,15 +36,22 @@ public class PortalController {
     @Transactional
     @GetMapping("/")
     public String index(Model model) {
+        
         News latestNews = newsService.latestNews();
-        List<News>newsList = newsService.newsList();
-        model.addAttribute("latestNews", latestNews);
+        
+        if (latestNews != null){ //Si hay noticias creadas se inyecta la última noticia creada
+            
+              model.addAttribute("latestNews", latestNews);
+        }
+        
+        List<News> newsList = newsService.newsList();
+      
         model.addAttribute("news", newsList);
         return "index.html";
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String errorSubscriber,  ModelMap model, 
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String errorSubscriber, ModelMap model,
             @RequestParam(required = false) String success) throws UsernameNotFoundException {
 
         if ("registerSuccess".equals(success)) {
@@ -53,70 +63,76 @@ public class PortalController {
 
             model.put("error", "Usuario y/o Contraseña incorrecto, intente nuevamente");
         }
-        
-        if (errorSubscriber != null){
+
+        if (errorSubscriber != null) {
             model.put("error", "Contenido exclusivo para suscriptores");
         }
 
         return "login.html";
     }
 
- 
+
     @Transactional
     @PreAuthorize("hasAnyRole('ROLE_READER', 'ROLE_WRITER')")
     @GetMapping("/home")
     public String home(HttpSession session, ModelMap model) {
+
         
         News latestNews = newsService.latestNews();
-        List<News>newsList = newsService.newsList();
-        model.addAttribute("latestNews", latestNews);
-        model.addAttribute("news", newsList);
         
-        if (( (session.getAttribute("readerSession") != null))  || (session.getAttribute("writerSession") != null)) { //REVISAR ACA, FALTA MANEJAR WRITER
+        if (latestNews != null){ //Si hay noticias creadas se inyecta la última noticia creada
             
-            Reader logged = (Reader) session.getAttribute("readerSession");
-            model.put("readerSession", logged);
-
-            if (logged.getRol().toString().equals("EDITOR")) {
-
-                return "redirect:/admin/dashboard";
-            }
+              model.addAttribute("latestNews", latestNews);
         }
         
+        List<News> newsList = newsService.newsList();
+ 
+        model.addAttribute("news", newsList);
+           
+         if ((session.getAttribute("userSession") != null)) {  
+
+            CustomUser logged = (CustomUser) session.getAttribute("userSession"); /// CustomUser ES LA CLASE PADRE 
+            
+            model.put("userSession", logged);
+            
+         } 
+    
         return "index.html";
     }
-    
+
+
     @Transactional
+        @PreAuthorize("hasAnyRole('ROLE_READER', 'ROLE_WRITER')")
     @GetMapping("/category/{category}")
-    public String category(@PathVariable String category, Model model){
-        
+    public String category(@PathVariable String category, Model model) {
+
         List<News> newsList = newsService.categoryList(category);
-        
+
         model.addAttribute("news", newsList);
-                
+
         return "category.html";
     }
-    
-        @Transactional
+
+    @Transactional
     @GetMapping("/search")
-    public String searchNewsByTitle(@RequestParam("word") String word, Model model){
-            System.out.println("word " +word);
+    public String searchNewsByTitle(@RequestParam("word") String word, Model model) {
+
         List<News> newsList = newsService.findNewsByTitle(word);
-        
+
         model.addAttribute("news", newsList);
-        
+
         return "category.html";
     }
-    
-        @Transactional
+
+    @Transactional
     @GetMapping("/writer/{id}")
-    public String filterByWriter(@PathVariable String id, Model model){
-        
+    public String filterByWriter(@PathVariable String id, Model model) {
+
         List<News> newsList = newsService.findNewsByWriter(id);
-        
+
         model.addAttribute("news", newsList);
-                
+
         return "category.html";
     }
-    
+
 }

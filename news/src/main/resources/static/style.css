@@ -23,7 +23,9 @@ header {
 
 .divHeader {
   align-items: center;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100vw;
+  
 }
 
 .link:link,
@@ -103,7 +105,8 @@ footer {
 
 .divFooter {
   align-items: center;
-  width: 1200px;
+  width: 100vw;
+  max-width: 1200px;
   justify-content: space-between;
 }
 
@@ -149,6 +152,8 @@ footer ul {
   justify-content: center;
   padding: 0 10px;
   margin-bottom: 15px;
+  max-width: 1200px;
+  width: 100vw;
 }
 
 .colCard {
@@ -159,6 +164,7 @@ footer ul {
   overflow: hidden !important;
   aspect-ratio: 1/1.3;
 }
+
 
 .superCard {
   aspect-ratio: 1/1.4;
@@ -274,6 +280,7 @@ footer ul {
   display: flex;
   justify-content: center;
 }
+/* ARREGLAR CON MEDIQUERY */
 .bannerLogin {
   font-size: 2em;
   text-align: center;
@@ -284,7 +291,9 @@ footer ul {
   max-width: 500px;
   border-radius: 3px;
   background-color: white;
-}
+  color:#3c3c3c !important;
+} 
+
 .bannerLogin > span {
   font-weight: 900;
   text-align: center;
@@ -298,11 +307,6 @@ footer ul {
 .bannerLogin > span > span {
   display: block;
   animation: animateWords 5s infinite ease;
-}
-
-.img-fluid {
-  margin-top: -150px;
-  margin-bottom: -150px;
 }
 
 /* divided into as many parts as there are spans, each part decreasing the translateY by -100% */
@@ -321,5 +325,48 @@ footer ul {
 
   100% {
     transform: translateY(-300%);
+  }
+}
+
+@media  (max-width: 499px) {
+
+  .bannerLogin {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: 700;
+    padding: 20px 0 20px;
+    border: solid 2px rgb(245, 68, 68);
+    min-width: 300px;
+    
+   
+    border-radius: 3px;
+    background-color: white;
+  } 
+  .bannerLogin > span {
+    font-weight: 900;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    color: rgb(245, 68, 68);
+    height: 1.25em;
+    vertical-align: bottom;
+    overflow: hidden;
+  }
+
+  .divFooter {
+    display: grid;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .divMenuFooter, .divLogoFooter,
+  .divRedes{
+    display: flex;
+    justify-content: center;
+  }
+
+  .divRedes{
+    text-align: center;
   }
 }

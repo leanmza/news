@@ -8,8 +8,8 @@
         <main>
             <div class="container-fluid divMain">
 
-                <div class="row rowLastestNews">
-                    <div class="superCard card">
+                <div class="row  rowLastestNews">
+                    <div class="superCard card" th:if="${latestNews != null} ">
                         
                         <img th:if="${latestNews.image != null}" th:src="@{/image/news/__${latestNews.id}__}" class="card-img-top cardImg" alt="...">
 

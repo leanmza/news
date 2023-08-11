@@ -5,6 +5,7 @@
 package com.lean.news.repository;
 
 import com.lean.news.entity.News;
+
 import com.lean.news.entity.Writer;
 import com.lean.news.enums.Category;
 import java.util.List;
@@ -31,4 +32,5 @@ public interface NewsRepository extends JpaRepository<News, String> {
 
     @Query("SELECT ne FROM News ne WHERE ne.writer = :writer")
     public List<News> listNewsByWriter(@Param("writer") Writer writer);
+
 }

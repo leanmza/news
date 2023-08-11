@@ -1,9 +1,14 @@
 package com.lean.news.controller;
 
+import com.lean.news.entity.CustomUser;
 import com.lean.news.entity.News;
 import com.lean.news.entity.Reader;
+import com.lean.news.entity.Writer;
+import com.lean.news.service.CustomUserService;
 import com.lean.news.service.NewsService;
 import com.lean.news.service.ReaderService;
+import com.lean.news.service.WriterService;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,9 +30,9 @@ public class ImageController {
 
     @Autowired
     NewsService newsService;
-     
+
     @Autowired
-   ReaderService readerService;
+    CustomUserService customUserService;
 
     @Transactional
     @GetMapping("/news/{id}")
@@ -44,11 +49,20 @@ public class ImageController {
     }
 
     @Transactional
-    @GetMapping("/user/{id}")
-    public ResponseEntity<byte[]> profileImageNews(@PathVariable String id) {
-        Reader reader = readerService.getOne(id);
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<byte[]> profileUserNews(@PathVariable String id, HttpSession session) {
 
-        byte[] image = reader.getProfileImage().getContent();
+        byte[] image = null;
+
+        if ((session.getAttribute("userSession") != null)) {
+
+           CustomUser customUser = customUserService.getOne(id); /// CustomUser ES LA CLASE PADRE, FUNCIONA CON READER Y WRITER
+
+            image = customUser.getProfileImage().getContent();
+
+            System.out.println("user reader");
+
+        }
 
         HttpHeaders headers = new HttpHeaders();
 
@@ -56,4 +70,5 @@ public class ImageController {
 
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
+
 }

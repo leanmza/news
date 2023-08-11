@@ -1,34 +1,42 @@
 <footer>
   <div class="divFooter row">
     <!-- COLUMNA MENÚ CATEGORÍAS -->
-    <div class="divMenu col-3">
+    <div class="divMenu divMenuFooter col-md-5 col-sm-5">
       <div class="row rowCategorías">
         <div class="col-6">
           <ul class="">
             <li>
-              <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+              <a
+                th:href="@{/category/__${'mendoza'}__}"
+                class="nav-link link linkFooter"
                 >MENDOZA</a
               >
             </li>
             <li>
-              <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+              <a
+                th:href="@{/category/__${'pais'}__}"
+                class="nav-link link linkFooter"
                 >PAÍS</a
               >
             </li>
             <li>
-              <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+              <a
+                th:href="@{/category/__${'deportes'}__}"
+                class="nav-link link linkFooter"
                 >DEPORTES</a
               >
             </li>
             <li>
               <a
                 th:href="@{/category/__${'policiales'}__}"
-                class="nav-link link"
+                class="nav-link link linkFooter"
                 >POLICIALES</a
               >
             </li>
             <li>
-              <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+              <a
+                th:href="@{/category/__${'libros'}__}"
+                class="nav-link link linkFooter"
                 >LIBROS</a
               >
             </li>
@@ -53,14 +61,14 @@
     </div>
 
     <!-- COLUMNA LOGO -->
-    <div class="divLogoFooter col-lg-1 col-sm-2">
+    <div class="divLogoFooter col-lg-1 col-md-2 col-sm-1">
       <a href="/" class="">
         <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
       </a>
     </div>
 
     <!-- COLUMNA REDES -->
-    <div class="divRedes col-lg-3 col-md-4 col-sm-5">
+    <div class="divRedes col-lg-4 offset-lg-1 col-md-5 col-sm-5  ">
       <ul class="nav">
         <li>
           <a href="http://www.twitter.com" class="nav-link link linkSocial"

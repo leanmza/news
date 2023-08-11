@@ -5,30 +5,20 @@ import com.lean.news.entity.Reader;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.ReaderRepository;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author Lean
  */
+
 @Service
-public class ReaderService implements UserDetailsService {
+public class ReaderService {
 
     @Autowired
     private ReaderRepository readerRepository;
@@ -74,7 +64,7 @@ public class ReaderService implements UserDetailsService {
 
             reader.setName(name);
             reader.setLastName(lastName);
-         
+
             reader.setPassword(new BCryptPasswordEncoder().encode(password));
             reader.setRol(Rol.READER);
 
@@ -88,7 +78,7 @@ public class ReaderService implements UserDetailsService {
             }
 
             readerRepository.save(reader);
-            
+
         }
     }
 
@@ -132,17 +122,16 @@ public class ReaderService implements UserDetailsService {
         }
 
     }
-    
-    
-     private void validateActualize(String name, String lastName,  String password, String password2, Long fileSize) throws MyException {
-  
+
+    private void validateActualize(String name, String lastName, String password, String password2, Long fileSize) throws MyException {
+
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo o estar vacío");
         }
         if (lastName == null || lastName.isEmpty()) {
             throw new MyException("El apellido no puede ser nulo o estar vacío");
         }
-  
+
         if (password == null || password.isEmpty()) {
             throw new MyException("La contraseña no pude ser nula o estar vacía");
         }
@@ -170,8 +159,6 @@ public class ReaderService implements UserDetailsService {
         }
 
     }
-    
-    
 
     private boolean emailChecker(String email) { // Verifica si el email ya existe en la BD
         boolean check = false;
@@ -220,32 +207,5 @@ public class ReaderService implements UserDetailsService {
         return readerRepository.getOne(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        System.out.println("email " + email);
-        Reader reader = readerRepository.findReaderByEmail(email);
-        System.out.println("reader " + reader);
-
-        if (reader != null) {
-            List<GrantedAuthority> permissions = new ArrayList();
-
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + reader.getRol().toString());
-
-            permissions.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = attr.getRequest().getSession(true);
-
-            session.setAttribute("readerSession", reader);
-
-            return new User(reader.getEmail(), reader.getPassword(), permissions);
-
-        } else {
-            throw new UsernameNotFoundException("Usuario no encontrado con el correo: " + email);
-
-        }
-    }
 
 }

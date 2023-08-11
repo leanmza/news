@@ -7,6 +7,7 @@
       </a>
     </div>
 
+
     <!-- COLUMNA MENÚ CATEGORÍAS -->
     <div class="divMenu col-7">
       <div class="row rowCategorías">
@@ -39,13 +40,15 @@
         </ul>
       </div>
 
-      <div class="row rowDashboard">
+      <div
+        class="row rowDashboard"
+        sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
+      >
         <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
         <a href="/news/createNews"
           ><button
             type="button"
             class="btn btn-outline-light button btnDashboard"
-            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
           >
             Cargar Noticia
           </button></a
@@ -53,6 +56,7 @@
         <!-- ---------------------------------------------- -->
       </div>
     </div>
+
 
     <!-- COLUMNA BARRA DE BÚSQUEDA -->
     <div class="divSearch col-2">
@@ -74,12 +78,13 @@
       </form>
     </div>
 
+
     <!-- COLUMNA LOGIN -->
     <div class="divLogin col-2">
       <!-- ESTE DIV SE MUESTRA SI NO HAY USUARIO LOGUEADO -->
       <div
         class="dropdown text-end"
-        th:if="${session.readerSession == null AND session.writerSession == null}"
+        th:if="${session.userSession == null}"
       >
         <a
           href="#"
@@ -103,19 +108,20 @@
               <i class="fa-regular fa-address-card iconLog"></i> Registrarse</a
             >
           </li>
+          <li>
+            <a href="/writer/register" class="nav-link link linkLog">
+              <i class="fa-regular fa-address-card iconLog"></i> Registrarse</a
+            >
+          </li>
         </ul>
       </div>
 
-      <div
-        class="divGuest"
-        th:if="${session.readerSession == null AND session.writerSession == null}"
-      ></div>
       <!-- ------------------------------ -->
 
       <!-- ESTE DIV SE MUESTRA SI HAY USUARIO LOGUEADO -->
       <div
         class="dropdown text-end"
-        th:if="${session.readerSession != null OR session.writerSession != null}"
+        th:if="${session.userSession != null}"
       >
         <a
           href="#"
@@ -126,17 +132,17 @@
           <!-- Si el esta logueado Reader -->
           <img
             class="profilePicture"
-            th:if="${session.readerSession != null}"
-            th:src="@{/image/user/__${session.readerSession.id}__}"
+            th:if="${session.userSession != null}"
+            th:src="@{/image/profile/__${session.userSession.id}__}"
           />
           <!-- -------------------------- -->
 
           <!-- Si el esta logueado Writer-->
-          <img
-            class="imagen-perfil"
-            th:if="${session.writerSession != writerSession}"
-            th:src="@{image/user/__${session.writerSession.id}__}"
-          />
+          <!-- <img
+            class="profilePicture"
+            th:if="${session.writerSession != null}"
+            th:src="@{image/profile/__${session.writerSession.id}__}s "
+          /> -->
           <!-- -------------------------- -->
         </a>
 
@@ -154,7 +160,7 @@
           <!-- Si el esta logueado Writer-->
           <li sec:authorize="hasRole ('WRITER')">
             <a
-              th:href="@{/writer/profile}"
+              th:href="@{writer/profile}"
               id="btn-contacto"
               class="link dropdown-items"
               >Perfil</a

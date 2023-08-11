@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.lean.news.service;
 
 import com.lean.news.entity.ProfileImage;
@@ -9,21 +6,11 @@ import com.lean.news.entity.Writer;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.WriterRepository;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -31,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Lean
  */
 @Service
-public class WriterService implements UserDetailsService {
+public class WriterService {
 
     @Autowired
     private WriterRepository writerRepository;
@@ -62,7 +49,7 @@ public class WriterService implements UserDetailsService {
         writerRepository.save(writer);
 
     }
-    
+
     public void actualizeWriter(String id, String name, String lastName,
             String password, String password2, MultipartFile imageFile) throws MyException {
 
@@ -73,13 +60,13 @@ public class WriterService implements UserDetailsService {
         Optional<Writer> optionalWriter = writerRepository.findById(id);
 
         if (optionalWriter.isPresent()) {
-           Writer writer = optionalWriter.get();
+            Writer writer = optionalWriter.get();
 
             writer.setName(name);
             writer.setLastName(lastName);
-         
+
             writer.setPassword(new BCryptPasswordEncoder().encode(password));
-            writer.setRol(Rol.READER);
+          
 
             if (!(imageFile.isEmpty())) { ///Comprueba si el imageFile no está vacio 
 
@@ -91,7 +78,7 @@ public class WriterService implements UserDetailsService {
             }
 
             writerRepository.save(writer);
-            
+
         }
     }
 
@@ -135,16 +122,16 @@ public class WriterService implements UserDetailsService {
         }
 
     }
-    
-    private void validateActualize(String name, String lastName,  String password, String password2, Long fileSize) throws MyException {
-  
+
+    private void validateActualize(String name, String lastName, String password, String password2, Long fileSize) throws MyException {
+
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo o estar vacío");
         }
         if (lastName == null || lastName.isEmpty()) {
             throw new MyException("El apellido no puede ser nulo o estar vacío");
         }
-  
+
         if (password == null || password.isEmpty()) {
             throw new MyException("La contraseña no pude ser nula o estar vacía");
         }
@@ -172,8 +159,7 @@ public class WriterService implements UserDetailsService {
         }
 
     }
-    
-    
+
     private boolean emailChecker(String email) { // Checks if the email already exists in the DB
         boolean check = false;
         Writer writer = writerRepository.findWriterByEmail(email);
@@ -216,30 +202,9 @@ public class WriterService implements UserDetailsService {
         return hasLowerCase;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("email " + email);
-        Writer writer = writerRepository.findWriterByEmail(email);
-        System.out.println("writer " + writer);
-
-        if (writer != null) {
-            List<GrantedAuthority> permissions = new ArrayList();
-
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + writer.getRol().toString());
-
-            permissions.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = attr.getRequest().getSession(true);
-
-            session.setAttribute("writerSession", writer);
-
-            return new User(writer.getEmail(), writer.getPassword(), permissions);
-
-        } else {
-            throw new UsernameNotFoundException("Usuario no encontrado con el correo: " + email);
-
-        }
+    @Transactional
+    public Writer getOne(String id) {
+        return writerRepository.getOne(id);
     }
+
 }
