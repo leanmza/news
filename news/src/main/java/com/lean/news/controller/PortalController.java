@@ -36,16 +36,16 @@ public class PortalController {
     @Transactional
     @GetMapping("/")
     public String index(Model model) {
-        
+
         News latestNews = newsService.latestNews();
-        
-        if (latestNews != null){ //Si hay noticias creadas se inyecta la última noticia creada
-            
-              model.addAttribute("latestNews", latestNews);
+
+        if (latestNews != null) { //Si hay noticias creadas se inyecta la última noticia creada
+
+            model.addAttribute("latestNews", latestNews);
         }
-        
+
         List<News> newsList = newsService.newsList();
-      
+
         model.addAttribute("news", newsList);
         return "index.html";
     }
@@ -71,38 +71,34 @@ public class PortalController {
         return "login.html";
     }
 
-
     @Transactional
     @PreAuthorize("hasAnyRole('ROLE_READER', 'ROLE_WRITER')")
     @GetMapping("/home")
     public String home(HttpSession session, ModelMap model) {
 
-        
         News latestNews = newsService.latestNews();
-        
-        if (latestNews != null){ //Si hay noticias creadas se inyecta la última noticia creada
-            
-              model.addAttribute("latestNews", latestNews);
+
+        if (latestNews != null) { //Si hay noticias creadas se inyecta la última noticia creada
+
+            model.addAttribute("latestNews", latestNews);
         }
-        
+
         List<News> newsList = newsService.newsList();
- 
+
         model.addAttribute("news", newsList);
-           
-         if ((session.getAttribute("userSession") != null)) {  
+
+        if ((session.getAttribute("userSession") != null)) {
 
             CustomUser logged = (CustomUser) session.getAttribute("userSession"); /// CustomUser ES LA CLASE PADRE 
-            
+
             model.put("userSession", logged);
-            
-         } 
-    
+
+        }
+
         return "index.html";
     }
 
-
     @Transactional
-        @PreAuthorize("hasAnyRole('ROLE_READER', 'ROLE_WRITER')")
     @GetMapping("/category/{category}")
     public String category(@PathVariable String category, Model model) {
 

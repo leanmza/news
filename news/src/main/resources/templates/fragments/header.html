@@ -1,63 +1,73 @@
 <header>
   <div class="divHeader row">
-    <!-- COLUMNA LOGO -->
-    <div class="divLogo col-1">
-      <a href="/" class="">
-        <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
-      </a>
-    </div>
-
-
-    <!-- COLUMNA MENÚ CATEGORÍAS -->
-    <div class="divMenu col-7">
-      <div class="row rowCategorías">
-        <ul class="nav">
-          <li>
-            <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
-              >MENDOZA</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
-              >PAÍS</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
-              >DEPORTES</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
-              >POLICIALES</a
-            >
-          </li>
-          <li>
-            <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
-              >LIBROS</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div
-        class="row rowDashboard"
-        sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
-      >
-        <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
-        <a href="/news/createNews"
-          ><button
-            type="button"
-            class="btn btn-outline-light button btnDashboard"
-          >
-            Cargar Noticia
-          </button></a
+    <nav class="navbar navbar-expand-md col-md-10 col-8 ">
+      <div class="container-fluid">
+        <div class="divLogo col-2 col-md-1">
+          <a href="/" class="">
+            <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
+          </a>
+        </div>
+        <div class="divBtnHamburger col-4">
+        <button
+          class="navbar-toggler btnHamburger"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-        <!-- ---------------------------------------------- -->
+          <span><i class="fa-solid fa-bars iconHamburger"></i></span>
+        </button>
       </div>
-    </div>
-
-
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <div class="divMenu col-lg-7 col-md-6">
+            <div class="row rowCategorías">
+              <ul class="nav">
+                <li>
+                  <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+                    >MENDOZA</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+                    >PAÍS</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+                    >DEPORTES</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
+                    >POLICIALES</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+                    >LIBROS</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div
+            class="row rowDashboard"
+            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
+          >
+            <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+            <a href="/news/createNews"
+              ><button
+                type="button"
+                class="btn btn-outline-light button btnDashboard"
+              >
+                Cargar Noticia
+              </button></a
+            >
+          
+          </div>
+            <!-- ---------------------------------------------- -->
+        </div>
     <!-- COLUMNA BARRA DE BÚSQUEDA -->
     <div class="divSearch col-2">
       <form
@@ -78,27 +88,28 @@
       </form>
     </div>
 
+        </div>
+      </div>
+    </nav>
 
     <!-- COLUMNA LOGIN -->
-    <div class="divLogin col-2">
+    <div class="divLogin col-md-2 col-4">
       <!-- ESTE DIV SE MUESTRA SI NO HAY USUARIO LOGUEADO -->
-      <div
-        class="dropdown text-end"
-        th:if="${session.userSession == null}"
-      >
+      <div class="dropdown text-end" th:if="${session.userSession == null}">
         <a
           href="#"
           class="d-block link-dark text-decoration-none dropdown-toggle nav-link link"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i class="fa-regular fa-user"></i> Iniciar Sesión
+          <i class="fa-regular fa-user"></i><span class="spanLogin"> Iniciar Sesión</span>
         </a>
 
         <ul class="dropdown-menu text-small">
           <!-- Si el esta logueado Reader -->
           <a href="/login" class="nav-link link linkLog">
-            <i class="fa-solid fa-right-to-bracket iconLog"></i> Ingresar</a
+            <i class="fa-solid fa-arrow-right-to-bracket iconLog"></i>
+            Ingresar</a
           >
 
           <li><hr class="dropdown-divider" /></li>
@@ -119,10 +130,7 @@
       <!-- ------------------------------ -->
 
       <!-- ESTE DIV SE MUESTRA SI HAY USUARIO LOGUEADO -->
-      <div
-        class="dropdown text-end"
-        th:if="${session.userSession != null}"
-      >
+      <div class="dropdown text-end" th:if="${session.userSession != null}">
         <a
           href="#"
           class="d-block link-dark text-decoration-none dropdown-toggle"
@@ -153,7 +161,7 @@
               th:href="@{/reader/profile}"
               id="btn-contacto"
               class="link dropdown-items"
-              >Perfil</a
+              ><i class="fa-regular fa-user iconLog"></i> Perfil</a
             >
           </li>
           <!-- -------------------------- -->
@@ -163,7 +171,7 @@
               th:href="@{writer/profile}"
               id="btn-contacto"
               class="link dropdown-items"
-              >Perfil</a
+              ><i class="fa-regular fa-user iconLog"></i> Perfil</a
             >
           </li>
           <!-- -------------------------- -->
@@ -171,7 +179,10 @@
           <li><hr class="dropdown-divider" /></li>
 
           <li>
-            <a href="/logout" class="dropdown-items link">Cerrar Sesión</a>
+            <a href="/logout" class="dropdown-items link">
+              <i class="fa-solid fa-arrow-right-from-bracket iconLog"></i>Cerrar
+              Sesión</a
+            >
           </li>
         </ul>
       </div>
@@ -179,3 +190,134 @@
     </div>
   </div>
 </header>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar scroll</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+   <nav class="navbar navbar-expand-md col-md-10 col-8 ">
+      <div class="container-fluid">
+        <div class="divLogo col-2 col-md-1">
+          <a href="/" class="">
+            <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
+          </a>
+        </div>
+        <div class="divBtnHamburger col-4">
+        <button
+          class="navbar-toggler btnHamburger"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span><i class="fa-solid fa-bars iconHamburger"></i></span>
+        </button>
+      </div>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <div class="divMenu col-lg-7 col-md-6">
+            <div class="row rowCategorías">
+              <ul class="nav">
+                <li>
+                  <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+                    >MENDOZA</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+                    >PAÍS</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+                    >DEPORTES</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
+                    >POLICIALES</a
+                  >
+                </li>
+                <li>
+                  <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+                    >LIBROS</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div
+            class="row rowDashboard"
+            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
+          >
+            <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+            <a href="/news/createNews"
+              ><button
+                type="button"
+                class="btn btn-outline-light button btnDashboard"
+              >
+                Cargar Noticia
+              </button></a
+            >
+          
+          </div>
+            <!-- ---------------------------------------------- -->
+        </div>
+    <!-- COLUMNA BARRA DE BÚSQUEDA -->
+    <div class="divSearch col-2">
+      <form
+        role="search"
+        th:action="@{/search}"
+        method="GET"
+        class="form searchForm"
+        id="formLogin"
+      >
+        <input
+          th:name="word"
+          id="word"
+          type="search"
+          class="form-control searchBar"
+          placeholder="Buscar"
+          aria-label="Search"
+        />
+      </form>
+    </div>
+
+        </div>
+      </div>
+    </nav>
+    

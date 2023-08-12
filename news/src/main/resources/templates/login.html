@@ -34,7 +34,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${error != null}" class="card text-white  mb-3 mensajeError rounded-3 p-2 cardMessageError">
+                        <div th:if="${error != null}" class="card text-white  mb-3 mensajeError rounded-3 cardMessageError">
                             <div class="card-body">
                                 <p class="card-text fs-6 mb-0 custom-error-message " th:text="${error}"></p>
                             </div>
@@ -98,7 +98,7 @@
                                 </button>
                                 <p class="small fw-bold mt-2 pt-1 mb-0">
                                     ¿No tenés cuenta?
-                                    <a href="/register" class="link-danger">Crear Usuario</a>
+                                    <a href="/reader/register" class="link-danger">Crear Usuario</a>
                                 </p>
                             </div>
                         </form>

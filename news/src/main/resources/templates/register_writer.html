@@ -18,9 +18,9 @@
                             id="formLogin"
                             enctype="multipart/form-data"
                             >
-                            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError rounded-3 p-2">
+                            <div th:if="${error != null}" class="card text-white  mb-3 mensajeError rounded-3 cardMessageError">
                                 <div class="card-body">
-                                    <h5 class="card-title fs-5 fw-bold mb-3">¡Error al registrar el escritor!</h5>
+                                    <h5 class="card-title fs-5 fw-bold">¡Error al registrar el escritor!</h5>
                                     <p class="card-text fs-6 mb-0 custom-error-message" th:text="${error}"></p>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </main>
-
+        <footer th:replace="/fragments/footer :: footer"> </footer>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"

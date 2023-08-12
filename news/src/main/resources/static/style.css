@@ -20,12 +20,26 @@ header {
   justify-content: center;
   display: flex;
 }
+.navbar {
+  background-color: rgb(245, 68, 68) !important;
+}
+.collapse {
+  justify-content: space-between;
+}
+
+.btnHamburger {
+  color: white !important;
+  border: solid 1px white !important  ;
+}
+.iconHamburger {
+  color: white;
+  font-size: 1.2em;
+}
 
 .divHeader {
   align-items: center;
   max-width: 1200px;
   width: 100vw;
-  
 }
 
 .link:link,
@@ -94,6 +108,11 @@ header {
   padding-right: 5px;
 }
 
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
 /* FOOTER */
 footer {
   background-color: rgb(245, 68, 68);
@@ -140,20 +159,23 @@ footer ul {
 
 .cardMessage {
   aspect-ratio: auto !important;
-
 }
 
 .cardMessageError {
   aspect-ratio: auto !important;
   background-color: rgb(245, 68, 68) !important;
+  text-align: center;
+}
+
+.card h5 {
+  color: white !important;
 }
 .rowLastestNews {
   display: flex;
   justify-content: center;
   padding: 0 10px;
   margin-bottom: 15px;
-  max-width: 1200px;
-  width: 100vw;
+  max-width: 1400px;
 }
 
 .colCard {
@@ -164,7 +186,6 @@ footer ul {
   overflow: hidden !important;
   aspect-ratio: 1/1.3;
 }
-
 
 .superCard {
   aspect-ratio: 1/1.4;
@@ -255,6 +276,25 @@ footer ul {
   margin-bottom: 10px;
 }
 
+.divButton {
+  justify-content: end;
+  margin-bottom: 10px;
+  text-align: end;
+}
+
+.fa-trash-can {
+  color: rgb(245, 68, 68) !important;
+}
+
+.fa-pen-to-square {
+  color: #3c3c3c;
+  margin-right: 10px;
+}
+
+.divImage {
+  display: flex;
+  justify-content: center;
+}
 .news h1 {
   font-weight: 700;
   font-size: 4em;
@@ -273,10 +313,13 @@ footer ul {
 .bodyNews {
   width: 75ch !important;
   font-size: 20px;
+  line-height: 1.8em !important;
+  white-space: pre-line;
+  /* white-space hace que se respen los parrafos y salto de texto sino se muestro todos seguido */
 }
 
 /* BANNER LOGIN */
-.divBanner{
+.divBanner {
   display: flex;
   justify-content: center;
 }
@@ -289,10 +332,10 @@ footer ul {
   border: solid 2px rgb(245, 68, 68);
   min-width: 450px;
   max-width: 500px;
-  border-radius: 3px;
+  border-radius: 6px;
   background-color: white;
-  color:#3c3c3c !important;
-} 
+  color: #3c3c3c !important;
+}
 
 .bannerLogin > span {
   font-weight: 900;
@@ -328,8 +371,7 @@ footer ul {
   }
 }
 
-@media  (max-width: 499px) {
-
+@media (max-width: 499px) {
   .bannerLogin {
     font-size: 1.2em;
     text-align: center;
@@ -337,11 +379,10 @@ footer ul {
     padding: 20px 0 20px;
     border: solid 2px rgb(245, 68, 68);
     min-width: 300px;
-    
-   
+
     border-radius: 3px;
     background-color: white;
-  } 
+  }
   .bannerLogin > span {
     font-weight: 900;
     text-align: center;
@@ -353,6 +394,9 @@ footer ul {
     overflow: hidden;
   }
 
+  /* HEADER */
+
+  /* FOOTER */
   .divFooter {
     display: grid;
     align-items: center;
@@ -360,13 +404,36 @@ footer ul {
     justify-content: center;
   }
 
-  .divMenuFooter, .divLogoFooter,
-  .divRedes{
+  .divMenuFooter {
+    display: none;
+  }
+
+  .divLogoFooter,
+  .divRedes {
     display: flex;
     justify-content: center;
   }
 
-  .divRedes{
+  .divRedes {
     text-align: center;
   }
+}
+
+@media (min-width: 768px) {
+  .divBtnHamburger {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .spanLogin {
+    display: none; /* Oculta el texto */
+  }
+
+  .dropdown-toggle{
+    padding-right: 12px;
+  }
+  .dropdown-toggle .fa-user {
+    font-size: 1.3rem; /* Ajusta el tamaño del icono */
+  }
+
 }
