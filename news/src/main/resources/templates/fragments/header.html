@@ -1,51 +1,121 @@
 <header>
   <div class="divHeader row">
     <nav class="navbar navbar-expand-md col-md-10 col-8 ">
-      <div class="container-fluid">
+    
         <div class="divLogo col-2 col-md-1">
           <a href="/" class="">
             <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
           </a>
         </div>
         <div class="divBtnHamburger col-4">
-        <button
-          class="navbar-toggler btnHamburger"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarScroll"
-          aria-controls="navbarScroll"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span><i class="fa-solid fa-bars iconHamburger"></i></span>
-        </button>
-      </div>
+          <button class="navbar-toggler btnHamburger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <span><i class="fa-solid fa-bars iconHamburger"></i></span>
+          </button>
+          
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="divMenu">
+                <div class="col-6 colCategorías">
+                  <ul class="">
+                    <li>
+                      <a th:href="@{/category/__${'mendoza'}__}" class="link"
+                        >MENDOZA</a
+                      >
+                    </li>
+                    <li>
+                      <a th:href="@{/category/__${'pais'}__}" class="link"
+                        >PAÍS</a
+                      >
+                    </li>
+                    <li>
+                      <a th:href="@{/category/__${'deportes'}__}" class="link"
+                        >DEPORTES</a
+                      >
+                    </li>
+                    <li>
+                      <a th:href="@{/category/__${'policiales'}__}" class="link"
+                        >POLICIALES</a
+                      >
+                    </li>
+                    <li>
+                      <a th:href="@{/category/__${'libros'}__}" class="link"
+                        >LIBROS</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div
+                class="col-6 colDashboard"
+                sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
+              >
+                <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+                <a href="/news/createNews"
+                  ><button
+                    type="button"
+                    class="btn btn-outline-dark button btnDashboard"
+                  >
+                    Cargar Noticia
+                  </button></a
+                >
+              
+              </div>
+                <!-- ---------------------------------------------- -->
+            </div>
+        <!-- COLUMNA BARRA DE BÚSQUEDA -->
+        <div class="divSearch">
+          <form
+            role="search"
+            th:action="@{/search}"
+            method="GET"
+            class="form searchForm"
+            id="formLogin"
+          >
+            <input
+              th:name="word"
+              id="word"
+              type="search"
+              class="form-control searchBar"
+              placeholder="Buscar"
+              aria-label="Search"
+            />
+          </form>
+        </div>
+
+              </div>
+            </div>
+          </div>
+       
+    
         <div class="collapse navbar-collapse" id="navbarScroll">
-          <div class="divMenu col-lg-7 col-md-6">
+          <div class="divMenu col-lg-7 col-md-9">
             <div class="row rowCategorías">
               <ul class="nav">
                 <li>
-                  <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
+                  <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link categoryLink"
                     >MENDOZA</a
                   >
                 </li>
                 <li>
-                  <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
+                  <a th:href="@{/category/__${'pais'}__}" class="nav-link link categoryLink"
                     >PAÍS</a
                   >
                 </li>
                 <li>
-                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
+                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link categoryLink"
                     >DEPORTES</a
                   >
                 </li>
                 <li>
-                  <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
+                  <a th:href="@{/category/__${'policiales'}__}" class="nav-link link categoryLink"
                     >POLICIALES</a
                   >
                 </li>
                 <li>
-                  <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
+                  <a th:href="@{/category/__${'libros'}__}" class="nav-link link categoryLink"
                     >LIBROS</a
                   >
                 </li>
@@ -69,7 +139,7 @@
             <!-- ---------------------------------------------- -->
         </div>
     <!-- COLUMNA BARRA DE BÚSQUEDA -->
-    <div class="divSearch col-2">
+    <div class="divSearch col-3">
       <form
         role="search"
         th:action="@{/search}"
@@ -89,7 +159,7 @@
     </div>
 
         </div>
-      </div>
+     
     </nav>
 
     <!-- COLUMNA LOGIN -->
@@ -189,135 +259,5 @@
       <!-- ------------------------------ -->
     </div>
   </div>
+  
 </header>
-
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar scroll</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Link</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-   <nav class="navbar navbar-expand-md col-md-10 col-8 ">
-      <div class="container-fluid">
-        <div class="divLogo col-2 col-md-1">
-          <a href="/" class="">
-            <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
-          </a>
-        </div>
-        <div class="divBtnHamburger col-4">
-        <button
-          class="navbar-toggler btnHamburger"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarScroll"
-          aria-controls="navbarScroll"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span><i class="fa-solid fa-bars iconHamburger"></i></span>
-        </button>
-      </div>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <div class="divMenu col-lg-7 col-md-6">
-            <div class="row rowCategorías">
-              <ul class="nav">
-                <li>
-                  <a th:href="@{/category/__${'mendoza'}__}" class="nav-link link"
-                    >MENDOZA</a
-                  >
-                </li>
-                <li>
-                  <a th:href="@{/category/__${'pais'}__}" class="nav-link link"
-                    >PAÍS</a
-                  >
-                </li>
-                <li>
-                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link"
-                    >DEPORTES</a
-                  >
-                </li>
-                <li>
-                  <a th:href="@{/category/__${'policiales'}__}" class="nav-link link"
-                    >POLICIALES</a
-                  >
-                </li>
-                <li>
-                  <a th:href="@{/category/__${'libros'}__}" class="nav-link link"
-                    >LIBROS</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <div
-            class="row rowDashboard"
-            sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
-          >
-            <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
-            <a href="/news/createNews"
-              ><button
-                type="button"
-                class="btn btn-outline-light button btnDashboard"
-              >
-                Cargar Noticia
-              </button></a
-            >
-          
-          </div>
-            <!-- ---------------------------------------------- -->
-        </div>
-    <!-- COLUMNA BARRA DE BÚSQUEDA -->
-    <div class="divSearch col-2">
-      <form
-        role="search"
-        th:action="@{/search}"
-        method="GET"
-        class="form searchForm"
-        id="formLogin"
-      >
-        <input
-          th:name="word"
-          id="word"
-          type="search"
-          class="form-control searchBar"
-          placeholder="Buscar"
-          aria-label="Search"
-        />
-      </form>
-    </div>
-
-        </div>
-      </div>
-    </nav>
-    

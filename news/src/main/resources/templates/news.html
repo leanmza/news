@@ -28,7 +28,7 @@
                         <!-- SE MUESTRA SI HAY UN WRITER O EDITOR LOGUEADO  -->
                 <div class="divButton row" sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')" > 
                     
-                    <div class="col-1">
+                    <div class="col-12">
                     <a th:href="@{/news/editNews/__${news.id}__}" class="link">
                         <i class="fa-regular fa-pen-to-square"></i></a
                     >
