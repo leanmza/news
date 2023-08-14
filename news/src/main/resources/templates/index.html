@@ -1,55 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/fragments/head :: head"></head>
-    <body>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="/fragments/head :: head"></head>
+  <body>
+    <header th:replace="/fragments/header :: header"></header>
 
-        <header th:replace="/fragments/header :: header"> </header>
+    <main>
+      <div class="container-fluid divMain">
+        <div class="row rowLastestNews">
+          <div class="superCard card" th:if="${latestNews != null} ">
+            <img
+              th:if="${latestNews.image != null}"
+              th:src="@{/image/news/__${latestNews.id}__}"
+              class="card-img-top cardImg"
+              alt="..."
+            />
 
-        <main>
-            <div class="container-fluid divMain">
-
-                <div class="row  rowLastestNews">
-                    <div class="superCard card" th:if="${latestNews != null} ">
-                        
-                        <img th:if="${latestNews.image != null}" th:src="@{/image/news/__${latestNews.id}__}" class="card-img-top cardImg" alt="...">
-
-                        <div class="card-img-overlay">
-                            <a th:href="@{/category/__${latestNews.category}__}" class="link"><h6 class="card-category" th:text="${latestNews.category}"></h6></a>
-                            <h6 th:if="${latestNews.subscriberContent == true} ">Exclusivo suscriptores <i class="fa-solid fa-star exclusiveIcon"></i></h6>
-                            <a th:href="@{/news/__${latestNews.id}__}" class="link"><h2 class="card-title" th:text="${latestNews.title}"></h2></a>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row row-cols-1 ">
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 colCard" th:each="news : ${news}">
-
-                        <div class="card h-100">
-
-                            <img th:if="${news.image != null}" th:src="@{/image/news/__${news.id}__}" class="card-img-top cardImg" alt="...">
-
-                            <div class="card-img-overlay">
-                                <a th:href="@{/category/__${news.category}__}" class="link"><h6 class="card-category" th:text="${news.category}"></h6></a>
-                                <h6 th:if="${news.subscriberContent == true} ">Exclusivo suscriptores <i class="fa-solid fa-star exclusiveIcon"></i></h6>
-                                <a th:href="@{/news/__${news.id}__}" class="link"><h2 class="card-title" th:text="${news.title}"></h2></a>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+            <div class="card-img-overlay">
+              <a th:href="@{/category/__${latestNews.category}__}" class="link"
+                ><h6 class="card-category" th:text="${latestNews.category}"></h6
+              ></a>
+              <h6 th:if="${latestNews.subscriberContent == true} ">
+                Exclusivo suscriptores
+                <i class="fa-solid fa-star exclusiveIcon"></i>
+              </h6>
+              <a th:href="@{/news/__${latestNews.id}__}" class="link"
+                ><h2 class="card-title" th:text="${latestNews.title}"></h2
+              ></a>
             </div>
+          </div>
+        </div>
+        <div class="row row-cols-1">
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 colCard"
+            th:each="news : ${news}"
+          >
+            <div class="card h-100">
+              <img
+                th:if="${news.image != null}"
+                th:src="@{/image/news/__${news.id}__}"
+                class="card-img-top cardImg"
+                alt="..."
+              />
 
-        </main>
+              <div class="card-img-overlay">
+                <a th:href="@{/category/__${news.category}__}" class="link"
+                  ><h6 class="card-category" th:text="${news.category}"></h6
+                ></a>
+                <h6 th:if="${news.subscriberContent == true} ">
+                  Exclusivo suscriptores
+                  <i class="fa-solid fa-star exclusiveIcon"></i>
+                </h6>
+                <a th:href="@{/news/__${news.id}__}" class="link"
+                  ><h2 class="card-title" th:text="${news.title}"></h2
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
-        <footer th:replace="/fragments/footer :: footer"> </footer>
+    <footer th:replace="/fragments/footer :: footer"></footer>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

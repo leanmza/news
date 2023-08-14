@@ -2,7 +2,7 @@
   <div class="divHeader row">
     <nav class="navbar navbar-expand-md col-md-10 col-8 ">
     
-        <div class="divLogo col-2 col-md-1">
+        <div class="divLogo col-4 col-md-1">
           <a href="/" class="">
             <img src="../../LOGO_news.png" alt="logo" class="logoHeader" />
           </a>
@@ -32,8 +32,8 @@
                       >
                     </li>
                     <li>
-                      <a th:href="@{/category/__${'deportes'}__}" class="link"
-                        >DEPORTES</a
+                      <a th:href="@{/category/__${'mundo'}__}" class="link"
+                        >MUNDO</a
                       >
                     </li>
                     <li>
@@ -105,8 +105,8 @@
                   >
                 </li>
                 <li>
-                  <a th:href="@{/category/__${'deportes'}__}" class="nav-link link categoryLink"
-                    >DEPORTES</a
+                  <a th:href="@{/category/__${'mundo'}__}" class="nav-link link categoryLink"
+                    >MUNDO</a
                   >
                 </li>
                 <li>
@@ -126,6 +126,8 @@
             sec:authorize="hasRole ('WRITER') OR hasRole('EDITOR')"
           >
             <!-- ESTO SE MUESTRA SOLO A USUARIO CON ROL WRITER -->
+            <ul class="nav">
+              <li class="btnDashboard">
             <a href="/news/createNews"
               ><button
                 type="button"
@@ -134,7 +136,18 @@
                 Cargar Noticia
               </button></a
             >
-          
+          </li>
+          <li class="btnDashboard">
+            <a href="/news/manage"
+            ><button
+              type="button"
+              class="btn btn-outline-light button btnDashboard"
+            >
+              Administrar Noticias
+            </button></a
+          >
+        </li>
+        </ul>
           </div>
             <!-- ---------------------------------------------- -->
         </div>

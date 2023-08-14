@@ -1,6 +1,5 @@
 body {
-  background-color: #eee !important;
-  font-family: "Roboto", sans-serif !important;
+   font-family: "Roboto", sans-serif !important;
 }
 
 h1,
@@ -22,6 +21,9 @@ header {
 }
 .navbar {
   background-color: rgb(245, 68, 68) !important;
+}
+.navbar-collapse {
+  padding-left: 15px;
 }
 .collapse {
   justify-content: space-between;
@@ -120,7 +122,6 @@ header {
 }
 
 .offcanvas {
-  background-color: #eee !important ;
   max-width: 90vw !important;
 }
 
@@ -370,12 +371,25 @@ footer ul {
   /* white-space hace que se respen los parrafos y salto de texto sino se muestro todos seguido */
 }
 
+
+/* MANAGE NEWS */
+.tableLongText{
+  overflow: auto;
+  white-space: pre-line;
+  height: 5.8rem
+}
+
+tr:hover td{
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+}
 /* BANNER LOGIN */
 .divBanner {
   display: flex;
   justify-content: center;
+
 }
-/* ARREGLAR CON MEDIQUERY */
+
 .bannerLogin {
   font-size: 2em;
   text-align: center;
@@ -429,11 +443,9 @@ footer ul {
   }
 }
 
-/* PANTALLAS MEDIIUM */
+/* PANTALLAS MEDIUM */
 @media (max-width: 991px) {
-  .navbar-collapse {
-    padding-left: 8px;
-  }
+
 }
 
 /* PANTALLAS SMALL */
@@ -485,11 +497,11 @@ footer ul {
   }
 }
 
-@media (min-width: 768px) and (max-width: 780px) {
+/* @media (min-width: 768px) and (max-width: 780px) {
   .categoryLink {
     padding: 8px 8px !important;
   }
-}
+} */
 
 /* PANTALLAS EXTRA-SMALL */
 @media (max-width: 576px) {
@@ -521,4 +533,6 @@ footer ul {
     vertical-align: bottom;
     overflow: hidden;
   }
+
+
 }

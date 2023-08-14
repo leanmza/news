@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="/fragments/head :: head"></head>
+  <body>
+    <header th:replace="/fragments/header :: header"></header>
+
+    <main>
+      <div class="container-fluid divMain">
+        <table class="table row-col-12 table-light newsTable" id="newsTable">
+
+          <thead>
+            <tr class="row-col-12 titulosTabla">
+              <th scope="col" class="col-2">Título</th>
+              <th scope="col" clas="col-2">Cuerpo</th>
+              <th scope="col" class="col-2 col-md-1">Categoría</th>
+              <th scope="col" class="col-2 col-md-1">Autor</th>
+              <th scope="col" class="col-2">Fecha</th>
+              <th scope="col" class="col-2 col-md-1">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr th:each="news : ${news}">
+              <td th:text="${news.title}"></td>
+              <td ><p th:text="${news.body}" class="tableLongText"></p></td>
+              <td th:text="${news.category}"></td>
+              <td th:text="${news.writer.name}"></td>
+              <td th:text="${news.dateLog}"></td>
+              <td>
+                <div class="col-12">
+                  <a th:href="@{/news/editNews/__${news.id}__}" class="link">
+                    <i class="fa-regular fa-pen-to-square"></i
+                  ></a>
+
+                  <a th:href="@{/news/deleteNews/__${news.id}__}" class="link">
+                    <i class="fa-solid fa-trash-can"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

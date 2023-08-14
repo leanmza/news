@@ -11,7 +11,7 @@ package com.lean.news.enums;
 public enum Category {
     MENDOZA,
     PAIS,
-    DEPORTES, 
+    MUNDO, 
     POLICIALES,
     LIBROS,
     

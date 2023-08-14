@@ -69,12 +69,8 @@
                                         placeholder="Categoría"
                                         name="category"
                                         >
-                                        <option value="MENDOZA" th:selected="${news.category}">MENDOZA</option>
-                                        <option value="PAIS" th:selected="${news.category}">PAÍS</option>
-                                        <option value="DEPORTES" th:selected="${news.category}">DEPORTES</option>
-                                        <option value="POLICIALES" th:selected="${news.category}">POLICIALES</option>
-                                        <option value="LIBROS" th:selected="${news.category}">LIBROS</option>
-
+                                        <option th:each="category : ${categorys}" th:value="${category}" th:text="${category}"></option>
+                                        
                                     </select>
                                     <label class="form-label" for="title">Categoría</label>
 
