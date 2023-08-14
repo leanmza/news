@@ -1,5 +1,5 @@
 body {
-   font-family: "Roboto", sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
 }
 
 h1,
@@ -47,7 +47,7 @@ header {
 .divLogo {
   display: flex;
   justify-content: center;
-  padding-left: 12px ;
+  padding-left: 12px;
 }
 
 .link:link,
@@ -137,8 +137,8 @@ header {
   padding-left: 15px !important;
 }
 
-.offcanvas .link{
-  color:black !important;
+.offcanvas .link {
+  color: black !important;
 }
 
 .offcanvas .searchBar {
@@ -154,7 +154,7 @@ header {
   color: black !important;
 }
 
-.offcanvas .divSearch{
+.offcanvas .divSearch {
   padding-top: 15px;
 }
 /* FOOTER */
@@ -371,15 +371,14 @@ footer ul {
   /* white-space hace que se respen los parrafos y salto de texto sino se muestro todos seguido */
 }
 
-
 /* MANAGE NEWS */
-.tableLongText{
+.tableLongText {
   overflow: auto;
   white-space: pre-line;
-  height: 5.8rem
+  height: 5.8rem;
 }
 
-tr:hover td{
+tr:hover td {
   background-color: #ddd;
   transition: background-color 0.3s ease;
 }
@@ -387,7 +386,6 @@ tr:hover td{
 .divBanner {
   display: flex;
   justify-content: center;
-
 }
 
 .bannerLogin {
@@ -445,7 +443,9 @@ tr:hover td{
 
 /* PANTALLAS MEDIUM */
 @media (max-width: 991px) {
-
+  .img-fluid {
+    display: none;
+  }
 }
 
 /* PANTALLAS SMALL */
@@ -533,6 +533,4 @@ tr:hover td{
     vertical-align: bottom;
     overflow: hidden;
   }
-
-
 }
