@@ -37,6 +37,7 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+     @PreAuthorize("hasAnyRole('ROLE_WRITER', 'ROLE_EDITOR')")
     @GetMapping("/createNews")
     public String createNews(ModelMap model) {
 

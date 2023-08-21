@@ -416,6 +416,23 @@ tr:hover td {
   animation: animateWords 5s infinite ease;
 }
 
+/* ERROR */
+
+.errorImg {
+  max-height: 400px;
+  margin: 0px 0 20px 0;
+}
+
+.message {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.message h1{
+font-weight: 700;
+margin-bottom: 15px;
+}
+
 /* divided into as many parts as there are spans, each part decreasing the translateY by -100% */
 @keyframes animateWords {
   0% {
