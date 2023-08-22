@@ -33,4 +33,26 @@ public interface NewsRepository extends JpaRepository<News, String> {
     @Query("SELECT ne FROM News ne WHERE ne.writer = :writer")
     public List<News> listNewsByWriter(@Param("writer") Writer writer);
 
+//      QUERYS PARA ORDENAR TABLA DE ADMINISTRAR NEWS
+    @Query("SELECT ne FROM News ne ORDER BY ne.title DESC")
+    public List<News> orderByTitleDesc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.title ASC")
+    public List<News> orderByTitleAsc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.category DESC")
+    public List<News> orderByCategoryDesc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.category ASC")
+    public List<News> orderByCategoryAsc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.writer DESC")
+    public List<News> orderByWriterDesc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.writer ASC")
+    public List<News> orderByWriterAsc();
+
+    @Query("SELECT ne FROM News ne ORDER BY ne.dateLog ASC")
+    public List<News> listOrderedNewsAsc();
+
 }

@@ -382,6 +382,51 @@ tr:hover td {
   background-color: #ddd;
   transition: background-color 0.3s ease;
 }
+
+
+.navBarFilter{
+  margin-bottom: 15px;
+}
+
+.navFilter{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.navFilter h6{
+  text-align: right;
+  padding-right: 15px;
+}
+
+.navFilter .form-control{
+  display: flex;
+  align-items: center;
+  height: 40px !important;
+}
+
+.filter span {
+  color: black !important;
+  font-size: 16px !important;
+}
+
+.filter .dropdown-menu {
+  background-color: white !important;
+  transform: translate(0px, 41px) !important;
+}
+
+.btnFilter{
+  padding-inline: 2px;
+}
+
+.categoryFilter:link,
+.categoryFilter:visited,
+.categoryFilter:active {
+  text-decoration: none;
+  color: black !important;
+  font-size: 16px !important;
+}
+
 /* BANNER LOGIN */
 .divBanner {
   display: flex;
@@ -428,9 +473,9 @@ tr:hover td {
   margin-bottom: 32px;
 }
 
-.message h1{
-font-weight: 700;
-margin-bottom: 15px;
+.message h1 {
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 
 /* divided into as many parts as there are spans, each part decreasing the translateY by -100% */

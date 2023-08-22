@@ -158,39 +158,13 @@ public class NewsService {
     }
 
     @Transactional(readOnly = true)
-    public News latestNews() {
-        List<News> newsList = new ArrayList();
-        newsList = newsRepository.listOrderedNews();
-
-
-        if (newsList.size() > 0){ //Condicional para que si no hay noticias cargadas siga andando la pag y no se rompa
-            
-            News lastestNews = newsList.get(0); //Toma la primer noticia del array 
-
-            return lastestNews;
-
-        } else {
-
-            return null;
-        }
-    }
-
-    @Transactional(readOnly = true)
     public List<News> newsList() { //Muestra la noticia más nueva primero
         List<News> newsList = new ArrayList();
+
         newsList = newsRepository.listOrderedNews();
 
-        if (!(newsList.isEmpty())) { //Condicional para que si no hay noticias cargadas siga andando la pag y no se rompa
+        return newsList;
 
-            newsList.remove(0);
-
-            return newsList;
-
-        } else {
-
-          return newsList;
-            
-        }
     }
 
     @Transactional
@@ -223,6 +197,51 @@ public class NewsService {
 
         List<News> newsList = new ArrayList();
         newsList = newsRepository.listNewsByWriter(writer);
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> newsListAsc() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+
+        newsList = newsRepository.listOrderedNewsAsc();
+
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> newsListWriterAZ() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+
+        newsList = newsRepository.orderByWriterDesc();
+
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> newsListWriterZA() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+
+        newsList = newsRepository.orderByWriterAsc();
+
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> newsListTitleDesc() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+
+        newsList = newsRepository.orderByTitleDesc();
+
+        return newsList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> newsListTitleAsc() { //Muestra la noticia más nueva primero
+        List<News> newsList = new ArrayList();
+
+        newsList = newsRepository.orderByTitleAsc();
+
         return newsList;
     }
 }

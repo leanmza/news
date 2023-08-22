@@ -6,6 +6,8 @@ import com.lean.news.entity.Writer;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.WriterRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -201,7 +203,7 @@ public class WriterService {
         }
         return hasLowerCase;
     }
-
+   
     @Transactional
     public Writer getOne(String id) {
         return writerRepository.getOne(id);

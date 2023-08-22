@@ -9,6 +9,110 @@
 
     <main>
       <div class="container-fluid divMain">
+        <div class="navBar navBarFilter row">
+        
+        
+            <ul class="nav navFilter">
+              <li class="col-2">
+                <h6>Filtrar</h6>
+              </li>
+              <li class="btnFilter">
+                <div class="dropdown text-end form-control filter">
+                  <a
+                    href="#"
+                    class="d-block link-dark text-decoration-none dropdown-toggle nav-link link filter"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="fa-regular fa-user"></i><span class="spanLogin">Título</span>
+                  </a>
+          
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a th:href="@{/news/manage/titleAZ}" class="nav-link link linkLog categoryFilter">
+                      A-Z</a>
+                      </li>
+                    <li>
+                    <a th:href="@{/news/manage/titleZA}" class="nav-link link linkLog categoryFilter">
+                     Z-A</a>
+                    </li>
+                </div>
+                </li> 
+              <li class="btnFilter">
+                <div class="dropdown text-end form-control filter col-2 col-md-1">
+                  <a
+                    href="#"
+                    class="d-block link-dark text-decoration-none dropdown-toggle nav-link link filter"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="fa-regular fa-user"></i><span class="spanLogin">Categoría</span>
+                  </a>
+          
+                  <ul class="dropdown-menu">
+                    <li th:each="category : ${categorys}">
+                      <a th:href="@{/news/manage/__${category}__}" class="nav-link link categoryLink categoryFilter" th:text="${category}"></a>
+                      </li>
+                    <li>
+
+                  </div>
+              </li> 
+
+                <li class="btnFilter">
+                <div class="dropdown text-end form-control filter col-2 col-md-1">
+                  <a
+                    href="#"
+                    class="d-block link-dark text-decoration-none dropdown-toggle nav-link link filter"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="fa-regular fa-user"></i><span class="spanLogin">Autor</span>
+                  </a>
+          
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a th:href="@{/news/manage/writerAZ}" class="nav-link link linkLog categoryFilter">
+                      A-Z</a>
+                      </li>
+                    <li>
+                    <a th:href="@{/news/manage/writerZA}" class="nav-link link linkLog categoryFilter">
+                     Z-A</a>
+                    </li>
+                  </div>
+                </li> 
+
+              <li class="btnFilter">
+                <div class="dropdown text-end form-control filter col-2">
+                  <a
+                    href="#"
+                    class="d-block link-dark text-decoration-none dropdown-toggle nav-link link filter"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="fa-regular fa-user"></i><span class="spanLogin">Fecha</span>
+                  </a>
+          
+                  <ul class="dropdown-menu text-small">
+                    <li>
+                      <a th:href="@{/news/manage}" class="nav-link link linkLog categoryFilter">
+                       Más Nuevos</a>
+                      </li>
+                    <li>
+                    <a th:href="@{/news/manage/dateAsc}" class="nav-link link linkLog categoryFilter">
+                     Más Viejos</a>
+                    </li>
+                  </div>
+              </li> 
+                   
+                  </ul>
+
+
+
+                
+                 
+      
+          </div>
+       
         <table class="table row-col-12 table-light newsTable" id="newsTable">
 
           <thead>

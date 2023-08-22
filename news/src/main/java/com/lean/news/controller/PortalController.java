@@ -33,14 +33,13 @@ public class PortalController {
     @GetMapping("/")
     public String index(Model model) {
 
-        News latestNews = newsService.latestNews();
+        News latestNews = newsService.newsList().get(0); //Tomo la noticia del primer lugar de la List
 
-        if (latestNews != null) { //Si hay noticias creadas se inyecta la última noticia creada
-
-            model.addAttribute("latestNews", latestNews);
-        }
+        model.addAttribute("latestNews", latestNews);
 
         List<News> newsList = newsService.newsList();
+
+        newsList.remove(0); //remuevo la noticia del primer lugar de la List
 
         model.addAttribute("news", newsList);
         return "index.html";
@@ -72,14 +71,13 @@ public class PortalController {
     @GetMapping("/home")
     public String home(HttpSession session, ModelMap model) {
 
-        News latestNews = newsService.latestNews();
+        News latestNews = newsService.newsList().get(0); //Tomo la noticia del primer lugar de la List
 
-        if (latestNews != null) { //Si hay noticias creadas se inyecta la última noticia creada
-
-            model.addAttribute("latestNews", latestNews);
-        }
+        model.addAttribute("latestNews", latestNews);
 
         List<News> newsList = newsService.newsList();
+
+        newsList.remove(0); //remuevo la noticia del primer lugar de la List
 
         model.addAttribute("news", newsList);
 
