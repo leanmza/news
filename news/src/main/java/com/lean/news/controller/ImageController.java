@@ -1,10 +1,13 @@
 package com.lean.news.controller;
 
-import com.lean.news.models.user.User;
-import com.lean.news.models.news.News;
+import com.lean.news.entity.CustomUser;
+import com.lean.news.entity.News;
+import com.lean.news.entity.Reader;
+import com.lean.news.entity.Writer;
 import com.lean.news.service.CustomUserService;
 import com.lean.news.service.NewsService;
-
+import com.lean.news.service.ReaderService;
+import com.lean.news.service.WriterService;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -53,9 +56,9 @@ public class ImageController {
 
         if ((session.getAttribute("userSession") != null)) {
 
-           User user = customUserService.getOne(id); /// CustomUser ES LA CLASE PADRE, FUNCIONA CON READER Y WRITER
+           CustomUser customUser = customUserService.getOne(id); /// CustomUser ES LA CLASE PADRE, FUNCIONA CON READER Y WRITER
 
-            image = user.getProfileImage().getContent();
+            image = customUser.getProfileImage().getContent();
 
             System.out.println("user reader");
 

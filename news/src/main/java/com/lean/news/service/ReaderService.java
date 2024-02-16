@@ -1,6 +1,7 @@
 package com.lean.news.service;
 
-import com.lean.news.models.image.ProfileImage;
+import com.lean.news.entity.ProfileImage;
+import com.lean.news.entity.Reader;
 import com.lean.news.enums.Rol;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.ReaderRepository;

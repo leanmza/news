@@ -4,7 +4,7 @@
  */
 package com.lean.news.repository;
 
-import com.lean.news.models.image.Image;
+import com.lean.news.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
