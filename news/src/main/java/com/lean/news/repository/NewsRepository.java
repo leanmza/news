@@ -35,24 +35,18 @@ public interface NewsRepository extends JpaRepository<News, String> {
 
 //      QUERYS PARA ORDENAR TABLA DE ADMINISTRAR NEWS
     @Query("SELECT ne FROM News ne ORDER BY ne.title DESC")
-    public List<News> orderByTitleDesc();
+    public List<News> orderByTitleDesc(); //ordena por título Z-A
 
     @Query("SELECT ne FROM News ne ORDER BY ne.title ASC")
-    public List<News> orderByTitleAsc();
-
-    @Query("SELECT ne FROM News ne ORDER BY ne.category DESC")
-    public List<News> orderByCategoryDesc();
-
-    @Query("SELECT ne FROM News ne ORDER BY ne.category ASC")
-    public List<News> orderByCategoryAsc();
+    public List<News> orderByTitleAsc(); //ordena por título A-Z
 
     @Query("SELECT ne FROM News ne ORDER BY ne.writer DESC")
-    public List<News> orderByWriterDesc();
+    public List<News> orderByWriterDesc(); //ordena por writer Z-A
 
     @Query("SELECT ne FROM News ne ORDER BY ne.writer ASC")
-    public List<News> orderByWriterAsc();
+    public List<News> orderByWriterAsc(); //ordena por writer A-Z
 
     @Query("SELECT ne FROM News ne ORDER BY ne.dateLog ASC")
-    public List<News> listOrderedNewsAsc();
+    public List<News> listOrderedNewsAsc(); 
 
 }
