@@ -4,7 +4,7 @@
  */
 package com.lean.news.controller;
 
-import com.lean.news.entity.News;
+import com.lean.news.models.news.News;
 import com.lean.news.enums.Category;
 import com.lean.news.exception.MyException;
 import com.lean.news.service.NewsService;

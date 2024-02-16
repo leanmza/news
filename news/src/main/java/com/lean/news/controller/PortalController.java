@@ -1,7 +1,7 @@
 package com.lean.news.controller;
 
-import com.lean.news.entity.CustomUser;
-import com.lean.news.entity.News;
+import com.lean.news.models.user.User;
+import com.lean.news.models.news.News;
 
 import com.lean.news.service.NewsService;
 import java.util.List;
@@ -83,7 +83,7 @@ public class PortalController {
 
         if ((session.getAttribute("userSession") != null)) {
 
-            CustomUser logged = (CustomUser) session.getAttribute("userSession"); /// CustomUser ES LA CLASE PADRE 
+            User logged = (User) session.getAttribute("userSession"); /// CustomUser ES LA CLASE PADRE
 
             model.put("userSession", logged);
 

@@ -1,7 +1,6 @@
 package com.lean.news.controller;
 
-import com.lean.news.entity.CustomUser;
-import com.lean.news.entity.Reader;
+import com.lean.news.models.user.User;
 import com.lean.news.exception.MyException;
 import com.lean.news.service.ReaderService;
 import javax.servlet.http.HttpSession;
@@ -65,7 +64,7 @@ public class ReaderController {
     @GetMapping("/profile")
     public String actualizeReader(HttpSession session, ModelMap model) {
 
-       CustomUser reader = (CustomUser) session.getAttribute("userSession"); ///   CustomUser ES LA CLASE PADRE
+       User reader = (User) session.getAttribute("userSession"); ///   CustomUser ES LA CLASE PADRE
 
         model.put("reader", reader);
  

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.lean.news.entity;
+package com.lean.news.models.news;
 
+import com.lean.news.models.image.Image;
 import com.lean.news.enums.Category;
 import java.time.LocalDateTime;
 import javax.persistence.Column;

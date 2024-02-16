@@ -4,7 +4,7 @@
  */
 package com.lean.news.repository;
 
-import com.lean.news.entity.CustomUser;
+import com.lean.news.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,9 +13,9 @@ import org.springframework.data.repository.query.Param;
  *
  * @author Lean
  */
-public interface CustomUserRepository extends JpaRepository<CustomUser, String> {
+public interface CustomUserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT cu FROM CustomUser cu WHERE cu.email = :email")
-    public CustomUser findUserByEmail(@Param("email") String email);
+    public User findUserByEmail(@Param("email") String email);
 
 }

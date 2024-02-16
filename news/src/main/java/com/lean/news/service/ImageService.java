@@ -1,6 +1,6 @@
 package com.lean.news.service;
 
-import com.lean.news.entity.Image;
+import com.lean.news.models.image.Image;
 import com.lean.news.exception.MyException;
 import com.lean.news.repository.ImageRepository;
 import java.io.IOException;

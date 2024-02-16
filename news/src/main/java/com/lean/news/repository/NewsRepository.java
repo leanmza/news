@@ -4,9 +4,8 @@
  */
 package com.lean.news.repository;
 
-import com.lean.news.entity.News;
+import com.lean.news.models.news.News;
 
-import com.lean.news.entity.Writer;
 import com.lean.news.enums.Category;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

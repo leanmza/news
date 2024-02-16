@@ -1,4 +1,4 @@
-package com.lean.news.entity;
+package com.lean.news.models.image;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
